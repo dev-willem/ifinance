@@ -1,0 +1,19 @@
+# Secrets
+.env
+*.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# Build artifacts
+target/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
