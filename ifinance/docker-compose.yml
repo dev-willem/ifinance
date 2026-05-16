@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_BASE_URL=http://backend:8888
+    depends_on:
+      - backend
+    networks:
+      - ifinance-network
+
+  backend:
+    image: ifinance-backend:latest
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - ifinance-network
+
+networks:
+  ifinance-network:
+    driver: bridge
