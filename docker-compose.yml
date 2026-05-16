@@ -1,0 +1,137 @@
+# iFinance — Docker Compose unificado
+#
+# Modo 1 — banco local (default, sem profile):
+#   docker compose up db
+#   → PostgreSQL em localhost:5432, backend roda na IDE
+#
+# Modo 2 — stack completo dev (profile docker):
+#   docker compose --profile docker up --build
+#   → Frontend :3000 | Backend :8080 | DB :5432
+#
+# Modo 3 — produção com imagens do registry (profile prod):
+#   docker compose --profile prod up -d
+#   → Frontend :80 | Backend :8080 | DB isolado sem porta exposta
+
+services:
+
+  # ── Banco de dados — dev ──────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-ifinance_dev}
+      POSTGRES_USER: ${DB_USERNAME:-ifinance}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ifinance}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ifinance}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # ── Banco de dados — prod ─────────────────────────────────
+  db-prod:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    profiles:
+      - prod
+
+  # ── Backend — build local (dev) ───────────────────────────
+  backend:
+    build:
+      context: ./ifinance_api
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USERNAME: ${DB_USERNAME:-ifinance}
+      DB_PASSWORD: ${DB_PASSWORD:-ifinance}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    profiles:
+      - docker
+
+  # ── Backend — imagem registry (prod) ─────────────────────
+  backend-prod:
+    image: ${BACKEND_IMAGE:-ghcr.io/willembergfilho/ifinance-backend:latest}
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: db-prod
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      db-prod:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    profiles:
+      - prod
+
+  # ── Frontend — build local (dev) ─────────────────────────
+  frontend:
+    build:
+      context: ./ifinance
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8080}
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - docker
+
+  # ── Frontend — imagem registry (prod) ────────────────────
+  frontend-prod:
+    image: ${FRONTEND_IMAGE:-ghcr.io/willembergfilho/ifinance-frontend:latest}
+    ports:
+      - "80:80"
+    depends_on:
+      backend-prod:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - prod
+
+volumes:
+  postgres_data:
+  postgres_prod_data:
