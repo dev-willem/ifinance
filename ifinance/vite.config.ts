@@ -7,6 +7,7 @@ import Components from 'unplugin-vue-components/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH || '/',
   plugins: [
     vue(),
     tailwindcss(),
@@ -52,22 +53,22 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8888',
+        target: process.env.VITE_DEV_BACKEND_URL || 'http://localhost:8888',
         changeOrigin: true,
         secure: false,
       },
       '/oauth2': {
-        target: 'http://localhost:8888',
+        target: process.env.VITE_DEV_BACKEND_URL || 'http://localhost:8888',
         changeOrigin: true,
         secure: false,
       },
       '/login': {
-        target: 'http://localhost:8888',
+        target: process.env.VITE_DEV_BACKEND_URL || 'http://localhost:8888',
         changeOrigin: true,
         secure: false,
       },
       '/logout': {
-        target: 'http://localhost:8888',
+        target: process.env.VITE_DEV_BACKEND_URL || 'http://localhost:8888',
         changeOrigin: true,
         secure: false,
       },

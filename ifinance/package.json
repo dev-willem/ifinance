@@ -16,7 +16,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.80.2",

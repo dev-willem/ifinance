@@ -33,9 +33,16 @@ export function useFormatBR() {
     return percentFormatter.format(v)
   }
 
-  function formatNumber(value: number | null | undefined): string {
+  function formatNumber(
+    value: number | null | undefined,
+    decimals = 0,
+  ): string {
     if (value == null) return '-'
-    return numberFormatter.format(value)
+
+    return new Intl.NumberFormat('pt-BR', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }).format(value)
   }
 
   function formatInt(value: number | null | undefined): string {

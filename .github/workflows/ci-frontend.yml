@@ -32,7 +32,7 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: '9'
 
       - name: Get pnpm store path
         id: pnpm-cache
@@ -48,7 +48,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: ifinance
-        run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: '0'
+        run: pnpm install --frozen-lockfile --config.only-built-dependencies=false
 
       - name: Type-check
         working-directory: ifinance
@@ -67,6 +69,7 @@ jobs:
         run: pnpm build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL_STAGING || '' }}
+          VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/' }}
 
   docker:
     name: Docker Build & Push
@@ -110,5 +113,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}
+            VITE_BASE_PATH=${{ vars.VITE_BASE_PATH || '/' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
