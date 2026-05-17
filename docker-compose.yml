@@ -80,7 +80,7 @@ services:
 
   # ── Backend — imagem registry (prod) ─────────────────────
   backend-prod:
-    image: ${BACKEND_IMAGE:-ghcr.io/willembergfilho/ifinance-backend:latest}
+    image: ${BACKEND_IMAGE:-ghcr.io/dev-willem/ifinance-backend:latest}
     environment:
       SPRING_PROFILES_ACTIVE: prod
       DB_HOST: db-prod
@@ -127,7 +127,7 @@ services:
 
   # ── Frontend — imagem registry (prod) ────────────────────
   frontend-prod:
-    image: ${FRONTEND_IMAGE:-ghcr.io/willembergfilho/ifinance-frontend:latest}
+    image: ${FRONTEND_IMAGE:-ghcr.io/dev-willem/ifinance-frontend:latest}
     ports:
       - "80:80"
     depends_on:
