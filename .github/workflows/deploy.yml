@@ -67,8 +67,8 @@ jobs:
 
       - name: Verificar health
         run: |
-          sleep 30
+          sleep 20
           curl --fail --retry 5 --retry-delay 10 \
-            "${{ vars.PRODUCTION_URL }}/actuator/health" \
+            "http://${{ secrets.DEPLOY_HOST }}:8080/actuator/health" \
             | grep -q '"status":"UP"' \
             && echo "Backend UP" || (echo "Health check falhou" && exit 1)
