@@ -1,7 +1,8 @@
 import { AmortizationSystem, EconomicIndex, InvestmentType, Periodicity, RateBasis, RateType } from '@/types'
+import { env } from '@/core/config/env'
 
 export const API_BASE_URL = '/api/v1'
-export const OAUTH_URL = '/oauth2/authorization/google'
+export const OAUTH_URL = `${env.apiBaseUrl}/oauth2/authorization/google`
 export const MAX_COMPARE_ITEMS = 5
 export const DEFAULT_PAGE_SIZE = 10
 export const PAGE_SIZE_OPTIONS = [5, 10, 20, 50]
