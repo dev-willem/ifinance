@@ -33,7 +33,7 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
   },
-  ...pluginVue.configs['flat/vue3-strongly-recommended'],
+  pluginVue.configs['flat/vue3-strongly-recommended'],
   {
     files: ['src/**/*.vue'],
     languageOptions: {
