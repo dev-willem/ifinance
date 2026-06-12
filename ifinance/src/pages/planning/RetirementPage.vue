@@ -9,7 +9,7 @@ import AppButton from '@/components/ui/AppButton.vue'
 import AppInput from '@/components/ui/AppInput.vue'
 import type { RetirementResponse } from '@/types'
 
-const { formatCurrency, formatPercent, formatNumber } = useFormatBR()
+const { formatCurrency, formatNumber } = useFormatBR()
 const toast = useToast()
 
 const form = ref({

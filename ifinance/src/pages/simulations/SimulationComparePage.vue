@@ -53,14 +53,6 @@ const comparisonRows = [
   },
 ] as const
 
-function getBestValue(key: string): number {
-  const values = simulations.value.map((s) => {
-    if (!s) return Infinity
-    const v = s[key as keyof typeof s]
-    return typeof v === 'number' ? v : (v as { annualRate?: number } | null)?.annualRate ?? Infinity
-  })
-  return Math.min(...values)
-}
 </script>
 
 <template>

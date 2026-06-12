@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMutation } from '@tanstack/vue-query'
 import { useForm, useField } from 'vee-validate'
@@ -21,7 +21,6 @@ const toast = useToast()
 const { formatCurrency } = useFormatBR()
 
 const currentStep = ref(1)
-const totalSteps = 3
 
 const step1Schema = z.object({
   name: z.string().min(3, 'Mínimo 3 caracteres').max(100, 'Máximo 100 caracteres'),
@@ -39,7 +38,7 @@ const fullSchema = step1Schema.extend({
   inflationIndex: z.string().optional(),
 })
 
-const { handleSubmit, errors, values, setFieldValue } = useForm({
+const { handleSubmit, errors, values } = useForm({
   validationSchema: toTypedSchema(fullSchema),
   initialValues: {
     name: '',

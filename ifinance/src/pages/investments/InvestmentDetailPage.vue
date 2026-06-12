@@ -6,9 +6,6 @@ import { useFormatBR } from '@/composables/useFormatBR'
 import AppCard from '@/components/ui/AppCard.vue'
 import AppBadge from '@/components/ui/AppBadge.vue'
 import AppSkeleton from '@/components/ui/AppSkeleton.vue'
-import { TAX_EXEMPT_INVESTMENTS } from '@/core/constants'
-import type { InvestmentType } from '@/types'
-
 const route = useRoute()
 const router = useRouter()
 const { formatCurrency, formatPercent, formatDate } = useFormatBR()
@@ -19,8 +16,6 @@ const { data: investment, isLoading, error } = useQuery({
   queryKey: ['investments', id],
   queryFn: () => investmentApi.getById(id),
 })
-
-const isExempt = (type: string) => TAX_EXEMPT_INVESTMENTS.includes(type as InvestmentType)
 </script>
 
 <template>

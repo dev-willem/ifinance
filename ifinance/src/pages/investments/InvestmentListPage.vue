@@ -6,11 +6,10 @@ import { investmentApi } from '@/services/api/investment'
 import { useFormatBR } from '@/composables/useFormatBR'
 import { useToast } from '@/composables/useToast'
 import { MAX_COMPARE_ITEMS } from '@/core/constants'
-import AppCard from '@/components/ui/AppCard.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import AppTable from '@/components/ui/AppTable.vue'
 import AppBadge from '@/components/ui/AppBadge.vue'
-import type { TableColumn, InvestmentListItem } from '@/types'
+import type { TableColumn } from '@/types'
 
 const router = useRouter()
 const { formatCurrency, formatPercent, formatDate } = useFormatBR()

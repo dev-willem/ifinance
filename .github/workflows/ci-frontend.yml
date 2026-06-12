@@ -63,7 +63,7 @@ jobs:
 
       - name: Unit tests
         working-directory: ifinance
-        run: pnpm test --run
+        run: pnpm test
 
       - name: Build
         working-directory: ifinance

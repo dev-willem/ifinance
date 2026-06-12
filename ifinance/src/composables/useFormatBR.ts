@@ -12,11 +12,6 @@ export function useFormatBR() {
     maximumFractionDigits: 4,
   })
 
-  const numberFormatter = new Intl.NumberFormat('pt-BR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
-
   const intFormatter = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,

@@ -11,7 +11,7 @@ import AppButton from '@/components/ui/AppButton.vue'
 import AppTable from '@/components/ui/AppTable.vue'
 import AppBadge from '@/components/ui/AppBadge.vue'
 import AppSelect from '@/components/ui/AppSelect.vue'
-import type { TableColumn, SimulationListItem, AmortizationSystem } from '@/types'
+import type { TableColumn, AmortizationSystem } from '@/types'
 
 const router = useRouter()
 const { formatCurrency, formatPercent, formatDate } = useFormatBR()
