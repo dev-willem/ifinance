@@ -21,6 +21,7 @@ const currentPage = ref(0)
 const pageSize = ref(10)
 const selectedIds = ref<string[]>([])
 const filterSystem = ref('')
+const exportingRow = ref<{ id: string; format: 'pdf' | 'xlsx' } | null>(null)
 
 const { data, isLoading, error } = useQuery({
   queryKey: computed(() => ['simulations', 'history', currentPage.value, pageSize.value]),
@@ -78,6 +79,8 @@ function handleCompare() {
 }
 
 async function handleExport(id: string, format: 'pdf' | 'xlsx') {
+  if (exportingRow.value) return
+  exportingRow.value = { id, format }
   try {
     const blob = await simulationApi.exportSimulation(id, format)
     const url = URL.createObjectURL(blob)
@@ -89,7 +92,13 @@ async function handleExport(id: string, format: 'pdf' | 'xlsx') {
     toast.success('Exportação concluída!')
   } catch {
     toast.error('Erro ao exportar simulação.')
+  } finally {
+    exportingRow.value = null
   }
+}
+
+function isExporting(id: string, format: 'pdf' | 'xlsx'): boolean {
+  return exportingRow.value?.id === id && exportingRow.value?.format === format
 }
 </script>
 
@@ -212,20 +221,22 @@ async function handleExport(id: string, format: 'pdf' | 'xlsx') {
             </svg>
           </button>
           <button
-            class="rounded p-1.5 text-[var(--text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors"
+            class="rounded p-1.5 text-[var(--text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50 disabled:pointer-events-none"
             title="Exportar PDF"
+            :disabled="!!exportingRow"
             @click="handleExport(row.id, 'pdf')"
           >
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5" :class="isExporting(row.id, 'pdf') ? 'animate-spin' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
           </button>
           <button
-            class="rounded p-1.5 text-[var(--text-muted)] hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"
+            class="rounded p-1.5 text-[var(--text-muted)] hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors disabled:opacity-50 disabled:pointer-events-none"
             title="Exportar Excel"
+            :disabled="!!exportingRow"
             @click="handleExport(row.id, 'xlsx')"
           >
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5" :class="isExporting(row.id, 'xlsx') ? 'animate-spin' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </button>

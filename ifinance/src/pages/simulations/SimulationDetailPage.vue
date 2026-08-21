@@ -22,6 +22,8 @@ const id = route.params['id'] as string
 const prepaymentPeriod = ref<number>(1)
 const snapshotModalOpen = ref(false)
 const snapshotName = ref('')
+const creatingSnapshot = ref(false)
+const exportingFormat = ref<'pdf' | 'xlsx' | null>(null)
 
 const { data: simulation, isLoading, error } = useQuery({
   queryKey: ['simulations', id],
@@ -40,6 +42,8 @@ const { data: snapshots } = useQuery({
 })
 
 async function handleExport(format: 'pdf' | 'xlsx') {
+  if (exportingFormat.value) return
+  exportingFormat.value = format
   try {
     const blob = await simulationApi.exportSimulation(id, format)
     const url = URL.createObjectURL(blob)
@@ -51,6 +55,8 @@ async function handleExport(format: 'pdf' | 'xlsx') {
     toast.success(`Exportação ${format.toUpperCase()} concluída!`)
   } catch {
     toast.error('Erro ao exportar.')
+  } finally {
+    exportingFormat.value = null
   }
 }
 
@@ -59,6 +65,8 @@ async function handleCreateSnapshot() {
     toast.warning('Informe um nome para o snapshot.')
     return
   }
+  if (creatingSnapshot.value) return
+  creatingSnapshot.value = true
   try {
     await simulationApi.createSnapshot(id, snapshotName.value)
     toast.success('Snapshot criado!')
@@ -66,6 +74,8 @@ async function handleCreateSnapshot() {
     snapshotName.value = ''
   } catch {
     toast.error('Erro ao criar snapshot.')
+  } finally {
+    creatingSnapshot.value = false
   }
 }
 </script>
@@ -94,13 +104,13 @@ async function handleCreateSnapshot() {
       </div>
 
       <div class="flex items-center gap-2">
-        <AppButton variant="secondary" size="sm" @click="snapshotModalOpen = true">
+        <AppButton variant="secondary" size="sm" :disabled="!!exportingFormat" @click="snapshotModalOpen = true">
           Snapshot
         </AppButton>
-        <AppButton variant="secondary" size="sm" @click="handleExport('pdf')">
+        <AppButton variant="secondary" size="sm" :loading="exportingFormat === 'pdf'" :disabled="!!exportingFormat" @click="handleExport('pdf')">
           PDF
         </AppButton>
-        <AppButton variant="secondary" size="sm" @click="handleExport('xlsx')">
+        <AppButton variant="secondary" size="sm" :loading="exportingFormat === 'xlsx'" :disabled="!!exportingFormat" @click="handleExport('xlsx')">
           Excel
         </AppButton>
       </div>
@@ -262,8 +272,8 @@ async function handleCreateSnapshot() {
         autofocus
       />
       <template #footer>
-        <AppButton variant="secondary" @click="snapshotModalOpen = false">Cancelar</AppButton>
-        <AppButton @click="handleCreateSnapshot">Salvar</AppButton>
+        <AppButton variant="secondary" :disabled="creatingSnapshot" @click="snapshotModalOpen = false">Cancelar</AppButton>
+        <AppButton :loading="creatingSnapshot" @click="handleCreateSnapshot">Salvar</AppButton>
       </template>
     </AppModal>
   </div>

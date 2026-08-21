@@ -52,7 +52,7 @@ const inputValue = computed({
     return props.modelValue ?? ''
   },
   set(val: string | number) {
-    if (props.variant === 'number' || props.variant === 'currency' || props.variant === 'percent') {
+    if (props.type === 'number' || props.variant === 'number' || props.variant === 'currency' || props.variant === 'percent') {
       const num = typeof val === 'string' ? parseFloat(val.replace(',', '.')) : val
       emit('update:modelValue', isNaN(num) ? null : num)
     } else {

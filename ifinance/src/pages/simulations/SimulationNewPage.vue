@@ -66,6 +66,7 @@ const { value: inflationCorrectionEnabled } = useField<boolean>('inflationCorrec
 const { value: inflationIndex } = useField<string | undefined>('inflationIndex')
 
 interface Charge {
+  id: string
   description: string
   chargeType: ChargeType
   amount: number
@@ -74,11 +75,12 @@ interface Charge {
 const charges = ref<Charge[]>([])
 
 function addCharge() {
-  charges.value.push({ description: '', chargeType: ChargeType.PERCENTAGE, amount: 0 })
+  charges.value.push({ id: crypto.randomUUID(), description: '', chargeType: ChargeType.PERCENTAGE, amount: 0 })
 }
 
-function removeCharge(i: number) {
-  charges.value.splice(i, 1)
+function removeCharge(id: string) {
+  const idx = charges.value.findIndex((c) => c.id === id)
+  if (idx !== -1) charges.value.splice(idx, 1)
 }
 
 const amortizationOptions = AMORTIZATION_SYSTEMS.map((s) => ({ value: s.value, label: `${s.label} - ${s.description}` }))
@@ -114,7 +116,9 @@ const onSubmit = handleSubmit((data) => {
     ...data,
     inflationIndex: data.inflationCorrectionEnabled ? (data.inflationIndex as EconomicIndex | undefined) : undefined,
     charges: charges.value.map((c) => ({
-      ...c,
+      description: c.description,
+      chargeType: c.chargeType,
+      amount: c.amount,
       appliesOnPeriod: null,
     })),
   })
@@ -301,7 +305,7 @@ const steps = [
             <div v-if="charges.length" class="space-y-3">
               <div
                 v-for="(charge, i) in charges"
-                :key="i"
+                :key="charge.id"
                 class="flex gap-3 items-end rounded-lg border border-[var(--border-subtle)] p-3"
               >
                 <div class="flex-1">
@@ -332,7 +336,7 @@ const steps = [
                 <button
                   type="button"
                   class="mb-0.5 rounded p-2 text-[var(--text-muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
-                  @click="removeCharge(i)"
+                  @click="removeCharge(charge.id)"
                 >
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

@@ -172,7 +172,7 @@ function isValid() {
           <AppCard>
             <p class="text-xs text-[var(--text-muted)]">Patrimônio necessário</p>
             <p class="text-xl font-bold text-indigo-400 mt-1">{{ formatCurrency(result.targetAmount) }}</p>
-            <p class="text-xs text-[var(--text-muted)] mt-0.5">Regra dos {{ formatNumber((form.withdrawalRate) ) }}%</p>
+            <p class="text-xs text-[var(--text-muted)] mt-0.5">Regra dos {{ formatNumber(form.withdrawalRate, Number.isInteger(form.withdrawalRate) ? 0 : 1) }}%</p>
           </AppCard>
 
           <AppCard>

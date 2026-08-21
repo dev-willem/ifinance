@@ -16,8 +16,12 @@ onClickOutside(menuRef, () => {
 
 async function handleLogout() {
   open.value = false
-  await auth.logout()
-  router.push('/login')
+  try {
+    await auth.logout()
+    router.push('/login')
+  } catch {
+    // erro já notificado via toast pela store
+  }
 }
 </script>
 

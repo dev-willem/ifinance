@@ -39,9 +39,9 @@ const rows = [
   { label: 'Prazo', key: 'termDays', fmt: (v: unknown) => `${v} dias` },
   { label: 'Rend. Bruto', key: 'grossReturn', fmt: (v: unknown) => `+${formatCurrency(v as number)}` },
   { label: 'Rend. Líquido', key: 'netReturn', fmt: (v: unknown) => `+${formatCurrency(v as number)}` },
-  { label: 'Taxa Bruta a.a.', key: 'grossAnnualRate', fmt: (v: unknown) => formatPercent((v as number) * 100) },
-  { label: 'Taxa Líquida a.a.', key: 'netAnnualRate', fmt: (v: unknown) => formatPercent((v as number) * 100) },
-  { label: 'IR', key: 'irRate', fmt: (v: unknown) => formatPercent((v as number) * 100) },
+  { label: 'Taxa Bruta a.a.', key: 'grossAnnualRate', fmt: (v: unknown) => formatPercent(v as number) },
+  { label: 'Taxa Líquida a.a.', key: 'netAnnualRate', fmt: (v: unknown) => formatPercent(v as number) },
+  { label: 'IR', key: 'irRate', fmt: (v: unknown) => formatPercent(v as number) },
   { label: 'Isento IR', key: 'isTaxExempt', fmt: (v: unknown) => (v ? 'Sim' : 'Não') },
 ] as const
 </script>

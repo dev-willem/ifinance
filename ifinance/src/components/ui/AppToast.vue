@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { Toast } from '@/stores/notifications'
 import { TOAST_DURATION } from '@/core/constants'
 
@@ -58,6 +58,10 @@ onMounted(() => {
       }
     }, interval)
   }
+})
+
+onUnmounted(() => {
+  if (intervalId.value) clearInterval(intervalId.value)
 })
 </script>
 

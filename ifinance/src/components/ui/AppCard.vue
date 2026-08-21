@@ -33,7 +33,7 @@ const cardClass = cn(
     <div v-if="$slots.header" class="px-5 py-4 border-b border-[var(--border-subtle)] flex items-center justify-between">
       <slot name="header" />
     </div>
-    <div :class="$slots.header || $slots.footer ? paddingClasses[padding] : paddingClasses[padding]">
+    <div :class="paddingClasses[padding]">
       <slot />
     </div>
     <div v-if="$slots.footer" class="px-5 py-4 border-t border-[var(--border-subtle)]">

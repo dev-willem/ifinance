@@ -48,14 +48,14 @@ onMounted(() => {
   <!-- Layout router -->
   <RouterView v-slot="{ Component: PageComponent }">
     <template v-if="PageComponent">
-      <Transition name="page" mode="out-in">
-        <DashboardLayout v-if="layout === 'dashboard'" :key="route.path">
-          <component :is="PageComponent as Component" />
-        </DashboardLayout>
-        <AuthLayout v-else-if="layout === 'auth'" :key="route.path">
-          <component :is="PageComponent as Component" />
-        </AuthLayout>
-        <component :is="PageComponent as Component" v-else :key="route.path" />
+      <DashboardLayout v-if="layout === 'dashboard'">
+        <component :is="PageComponent as Component" :key="route.path" />
+      </DashboardLayout>
+      <AuthLayout v-else-if="layout === 'auth'">
+        <component :is="PageComponent as Component" :key="route.path" />
+      </AuthLayout>
+      <Transition v-else name="page" mode="out-in">
+        <component :is="PageComponent as Component" :key="route.path" />
       </Transition>
     </template>
   </RouterView>
