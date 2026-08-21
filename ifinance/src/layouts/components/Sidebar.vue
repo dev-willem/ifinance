@@ -18,8 +18,12 @@ function isActive(path: string): boolean {
 }
 
 async function handleLogout() {
-  await auth.logout()
-  router.push('/login')
+  try {
+    await auth.logout()
+    router.push('/login')
+  } catch {
+    // erro já notificado via toast pela store
+  }
 }
 </script>
 
@@ -28,6 +32,8 @@ async function handleLogout() {
     :class="[
       'fixed left-0 top-0 h-full z-30 flex flex-col transition-all duration-300',
       'border-r border-[var(--border-subtle)] bg-[var(--bg-card)]',
+      'lg:translate-x-0',
+      ui.mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
       collapsed ? 'w-16' : 'w-[260px]',
     ]"
   >
@@ -65,6 +71,7 @@ async function handleLogout() {
                 : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]',
               collapsed ? 'justify-center' : '',
             ]"
+            @click="ui.closeMobileSidebar()"
           >
             <!-- Icons using SVG paths based on icon name -->
             <span class="flex-shrink-0 w-5 h-5 flex items-center justify-center">

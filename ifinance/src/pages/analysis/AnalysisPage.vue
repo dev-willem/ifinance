@@ -42,7 +42,7 @@ function removeCashFlow(i: number) {
 }
 
 const isValid = computed(() => {
-  return cashFlows.value.every((cf) => cf.value !== null) && discountRate.value !== null
+  return cashFlows.value.every((cf) => typeof cf.value === 'number' && !isNaN(cf.value)) && discountRate.value !== null
 })
 
 const { mutate, isPending } = useMutation({

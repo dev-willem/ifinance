@@ -16,7 +16,7 @@ const collapsed = computed(() => ui.sidebarCollapsed)
     <Transition name="fade">
       <div
         v-if="ui.mobileSidebarOpen"
-        class="fixed inset-0 z-20 bg-black/60 backdrop-blur-sm lg:hidden"
+        class="fixed inset-0 z-[25] bg-black/60 backdrop-blur-sm lg:hidden"
         @click="ui.closeMobileSidebar()"
       />
     </Transition>

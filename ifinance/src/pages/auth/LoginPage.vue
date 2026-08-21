@@ -1,7 +1,17 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { OAUTH_URL } from '@/core/constants'
+import { isSafeRedirect } from '@/utils/redirect'
+
+const route = useRoute()
 
 function loginWithGoogle() {
+  const redirect = route.query.redirect
+  if (isSafeRedirect(redirect)) {
+    sessionStorage.setItem('auth:redirect', redirect)
+  } else {
+    sessionStorage.removeItem('auth:redirect')
+  }
   window.location.href = OAUTH_URL
 }
 </script>

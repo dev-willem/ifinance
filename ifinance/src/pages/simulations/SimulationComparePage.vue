@@ -81,7 +81,7 @@ const comparisonRows = [
     <template v-else>
       <!-- Loading -->
       <div v-if="isLoading" class="space-y-3">
-        <AppSkeleton v-for="i in 7" :key="i" height="44px" />
+        <AppSkeleton v-for="i in comparisonRows.length + 2" :key="i" height="44px" />
       </div>
 
       <AppCard v-else :padding="'none'">

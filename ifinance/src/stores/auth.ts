@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import httpClient from '@/services/http/client'
+import { useNotificationsStore } from '@/stores/notifications'
 import type { User } from '@/types'
 
 // Module-level cache: survives re-renders, deduplicates concurrent calls
@@ -44,14 +45,26 @@ export const useAuthStore = defineStore('auth', () => {
     return _initPromise
   }
 
+  /**
+   * Só limpa o estado local após o backend confirmar o logout.
+   * Em caso de falha (rede, CORS, 500), a sessão no servidor continua
+   * ativa — limpar o estado local mesmo assim reautenticaria
+   * silenciosamente na próxima chamada a /users/me (risco em máquina
+   * compartilhada). Propaga o erro para o chamador decidir a navegação.
+   */
   async function logout(): Promise<void> {
     try {
       await httpClient.post('/logout')
-    } finally {
-      user.value = null
-      initialized.value = false
-      _initPromise = null
+    } catch (err) {
+      useNotificationsStore().error(
+        'Não foi possível sair',
+        'Verifique sua conexão e tente novamente.',
+      )
+      throw err
     }
+    user.value = null
+    initialized.value = false
+    _initPromise = null
   }
 
   function setUser(u: User | null) {

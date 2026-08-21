@@ -2,14 +2,17 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { isSafeRedirect } from '@/utils/redirect'
 
 const router = useRouter()
 const auth = useAuthStore()
 
 onMounted(async () => {
   await auth.fetchCurrentUser()
+  const redirect = sessionStorage.getItem('auth:redirect')
+  sessionStorage.removeItem('auth:redirect')
   if (auth.isAuthenticated) {
-    router.replace('/')
+    router.replace(isSafeRedirect(redirect) ? redirect : '/')
   } else {
     router.replace('/login')
   }

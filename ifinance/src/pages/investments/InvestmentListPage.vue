@@ -123,7 +123,7 @@ function handleCompare() {
       </template>
 
       <template #irRate="{ value }">
-        <span class="text-xs text-amber-400">{{ formatPercent((value as number) * 100) }}</span>
+        <span class="text-xs text-amber-400">{{ formatPercent(value as number) }}</span>
       </template>
 
       <template #isTaxExempt="{ value }">

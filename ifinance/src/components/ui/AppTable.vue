@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   'page-change': [page: number]
   'page-size-change': [size: number]
-  'sort': [sort: SortState]
+  'sort': [sort: SortState | null]
   'row-click': [row: T]
   'select': [ids: string[]]
 }>()
@@ -50,9 +50,7 @@ function handleSort(key: string) {
   } else {
     sortState.value = null
   }
-  if (sortState.value) {
-    emit('sort', sortState.value)
-  }
+  emit('sort', sortState.value)
 }
 
 function getSortIcon(key: string): string {

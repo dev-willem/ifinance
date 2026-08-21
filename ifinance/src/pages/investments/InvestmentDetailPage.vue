@@ -98,7 +98,7 @@ const { data: investment, isLoading, error } = useQuery({
             <div class="flex justify-between px-5 py-2.5 text-sm">
               <span class="text-[var(--text-muted)]">IR</span>
               <AppBadge :tone="investment.isTaxExempt ? 'success' : 'warning'" variant="subtle">
-                {{ investment.isTaxExempt ? 'Isento' : formatPercent(investment.irRate * 100) }}
+                {{ investment.isTaxExempt ? 'Isento' : formatPercent(investment.irRate) }}
               </AppBadge>
             </div>
           </div>
@@ -121,7 +121,7 @@ const { data: investment, isLoading, error } = useQuery({
             </div>
             <div v-if="!investment.isTaxExempt">
               <div class="flex justify-between mb-1.5 text-sm">
-                <span class="text-[var(--text-muted)]">IR ({{ formatPercent(investment.irRate * 100) }})</span>
+                <span class="text-[var(--text-muted)]">IR ({{ formatPercent(investment.irRate) }})</span>
                 <span class="text-amber-400 font-medium">-{{ formatCurrency(investment.irAmount) }}</span>
               </div>
               <div class="h-2 rounded-full bg-[var(--border-subtle)] overflow-hidden">
@@ -147,11 +147,11 @@ const { data: investment, isLoading, error } = useQuery({
             <div class="pt-3 border-t border-[var(--border-subtle)] grid grid-cols-2 gap-4">
               <div>
                 <p class="text-xs text-[var(--text-muted)]">Taxa Bruta a.a.</p>
-                <p class="text-base font-bold text-emerald-400">{{ formatPercent(investment.grossAnnualRate * 100) }}</p>
+                <p class="text-base font-bold text-emerald-400">{{ formatPercent(investment.grossAnnualRate) }}</p>
               </div>
               <div>
                 <p class="text-xs text-[var(--text-muted)]">Taxa Líquida a.a.</p>
-                <p class="text-base font-bold text-emerald-500">{{ formatPercent(investment.netAnnualRate * 100) }}</p>
+                <p class="text-base font-bold text-emerald-500">{{ formatPercent(investment.netAnnualRate) }}</p>
               </div>
             </div>
           </div>
