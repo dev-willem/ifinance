@@ -2,7 +2,8 @@ name: Deploy — Produção
 
 on:
   workflow_run:
-    workflows: ["CI — Backend", "CI — Frontend"]
+    # Só o backend gera imagem/artefato de deploy — o frontend é publicado direto pela Vercel.
+    workflows: ["CI — Backend"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
@@ -68,7 +69,8 @@ jobs:
       - name: Verificar health
         run: |
           sleep 20
-          curl --fail --retry 5 --retry-delay 10 \
-            "http://${{ secrets.DEPLOY_HOST }}:8080/actuator/health" \
-            | grep -q '"status":"UP"' \
+          # O backend publica a porta 8080 apenas em 127.0.0.1 do servidor (ver docker-compose.yml),
+          # portanto o health check precisa rodar dentro do host via SSH, não pela internet.
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
+            'curl --fail --silent --retry 5 --retry-delay 10 http://127.0.0.1:8080/actuator/health | grep -q "\"status\":\"UP\""' \
             && echo "Backend UP" || (echo "Health check falhou" && exit 1)
