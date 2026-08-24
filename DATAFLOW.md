@@ -1,6 +1,9 @@
 # iFinance — Diagramas de Fluxo de Dados
 
 > Cada diagrama cobre o fluxo completo: componente Vue → service TypeScript → HTTP → Spring Security → Controller → Use Case → Repository → BD / API externa.
+>
+> O frontend (Vue) vive neste repositório; o backend (Spring) vive em
+> [dev-willem/ifinance_api](https://github.com/dev-willem/ifinance_api).
 
 ---
 

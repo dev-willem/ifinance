@@ -13,7 +13,7 @@ Spring Boot 4.0.6 + Spring Framework 7.0.7: quando `SimulationControllerIT` cria
 - `MockMvc` injetado diretamente via `@Autowired` (padrão com `@AutoConfigureMockMvc`)
 - `ObjectMapper` criado localmente no único método que o usa
 
-**Arquivo:** `ifinance_api/src/test/java/com/willembergfilho/ifinance/api/SimulationControllerIT.java`
+**Arquivo:** `src/test/java/com/willembergfilho/ifinance/api/SimulationControllerIT.java` (repo [dev-willem/ifinance_api](https://github.com/dev-willem/ifinance_api), separado deste após a divisão frontend/backend)
 
 ---
 
@@ -29,7 +29,7 @@ O pacote `@vue/eslint-config-typescript@14.5.0` (já presente no `package.json`)
 
 - `eslint.config.mjs` reescrito usando `@vue/eslint-config-typescript`
 
-**Arquivo:** `ifinance/eslint.config.mjs`
+**Arquivo:** `eslint.config.mjs`
 
 ---
 

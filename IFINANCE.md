@@ -2,8 +2,11 @@
 
 **Versão:** 1.0 — estado atual do sistema  
 **Autor:** Willemberg Filho  
-**Stack:** Java 25 · Spring Boot 4.0.6 · PostgreSQL · Arquitetura Hexagonal  
-**Repositório:** `ifinance_api/` (mesmo diretório que este arquivo)
+**Stack:** Java 25 · Spring Boot 4.0.6 · PostgreSQL · Arquitetura Hexagonal
+
+> Documento de produto/arquitetura cobrindo o sistema completo. O código do backend
+> descrito aqui vive em [dev-willem/ifinance_api](https://github.com/dev-willem/ifinance_api);
+> este repositório (`dev-willem/ifinance`) contém o frontend.
 
 ---
 

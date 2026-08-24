@@ -4,13 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main, develop]
-    paths:
-      - 'ifinance/**'
-      - '.github/workflows/ci-frontend.yml'
   pull_request:
     branches: [main, develop]
-    paths:
-      - 'ifinance/**'
 
 jobs:
   quality:
@@ -39,30 +34,25 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('ifinance/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        working-directory: ifinance
         env:
           HUSKY: '0'
         run: pnpm install --frozen-lockfile --config.only-built-dependencies=false
 
       - name: Type-check
-        working-directory: ifinance
         run: pnpm type-check
 
       - name: Lint
-        working-directory: ifinance
         run: pnpm lint
 
       - name: Unit tests
-        working-directory: ifinance
         run: pnpm test
 
       - name: Build
-        working-directory: ifinance
         run: pnpm build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL_STAGING || '' }}
