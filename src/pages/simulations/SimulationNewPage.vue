@@ -18,7 +18,7 @@ import AppToggle from '@/components/ui/AppToggle.vue'
 
 const router = useRouter()
 const toast = useToast()
-const { formatCurrency } = useFormatBR()
+const { formatCurrency, formatPercent } = useFormatBR()
 
 const currentStep = ref(1)
 
@@ -405,7 +405,7 @@ const steps = [
             </div>
             <div class="flex justify-between px-4 py-3 text-sm">
               <span class="text-[var(--text-muted)]">Taxa</span>
-              <span class="font-medium text-[var(--text-primary)]">{{ values.interestRate }}% ({{ values.rateType }})</span>
+              <span class="font-medium text-[var(--text-primary)]">{{ formatPercent(values.interestRate) }} ({{ values.rateType }})</span>
             </div>
             <div class="flex justify-between px-4 py-3 text-sm">
               <span class="text-[var(--text-muted)]">Prazo</span>

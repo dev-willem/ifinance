@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useVirtualList } from '@vueuse/core'
 import { useFormatBR } from '@/composables/useFormatBR'
 import type { Installment } from '@/types'
@@ -15,8 +15,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { formatCurrency } = useFormatBR()
 
-const containerRef = ref<HTMLElement | null>(null)
-
 const { list, containerProps, wrapperProps } = useVirtualList(
   computed(() => props.installments),
   {
@@ -26,13 +24,13 @@ const { list, containerProps, wrapperProps } = useVirtualList(
 )
 
 const columns = [
-  { key: 'periodNumber', label: 'Per.', width: '60px', align: 'center' },
-  { key: 'principalBalanceBefore', label: 'Saldo Anterior', align: 'right' },
-  { key: 'amortization', label: 'Amortização', align: 'right' },
-  { key: 'interest', label: 'Juros', align: 'right' },
-  { key: 'additionalCharges', label: 'Encargos', align: 'right' },
-  { key: 'total', label: 'Parcela Total', align: 'right' },
-  { key: 'principalBalanceAfter', label: 'Saldo Final', align: 'right' },
+  { key: 'periodNumber', label: 'Per.', width: '8%', align: 'center' },
+  { key: 'principalBalanceBefore', label: 'Saldo Anterior', width: '16%', align: 'right' },
+  { key: 'amortization', label: 'Amortização', width: '15%', align: 'right' },
+  { key: 'interest', label: 'Juros', width: '15%', align: 'right' },
+  { key: 'additionalCharges', label: 'Encargos', width: '14%', align: 'right' },
+  { key: 'total', label: 'Parcela Total', width: '16%', align: 'right' },
+  { key: 'principalBalanceAfter', label: 'Saldo Final', width: '16%', align: 'right' },
 ] as const
 </script>
 
@@ -40,7 +38,10 @@ const columns = [
   <div class="rounded-xl border border-[var(--border-subtle)] overflow-hidden">
     <!-- Header -->
     <div class="overflow-x-auto">
-      <table class="w-full text-sm">
+      <table class="w-full text-sm" style="table-layout: fixed">
+        <colgroup>
+          <col v-for="col in columns" :key="col.key" :style="{ width: col.width }" />
+        </colgroup>
         <thead>
           <tr class="border-b border-[var(--border-subtle)] bg-[var(--bg-card)]">
             <th
@@ -50,7 +51,6 @@ const columns = [
                 'px-4 py-3 font-medium text-[var(--text-muted)] whitespace-nowrap',
                 col.align === 'right' ? 'text-right' : 'text-center',
               ]"
-              :style="'width' in col ? { width: col.width } : {}"
             >
               {{ col.label }}
             </th>
@@ -59,16 +59,18 @@ const columns = [
       </table>
     </div>
 
-    <!-- Virtual scrolling body -->
+    <!-- Virtual scrolling body (containerProps já carrega o ref usado pelo useVirtualList) -->
     <div
       v-if="!loading && installments.length > 0"
       v-bind="containerProps"
-      ref="containerRef"
       class="overflow-auto"
       style="height: 440px"
     >
       <div v-bind="wrapperProps">
         <table class="w-full text-sm" style="table-layout: fixed">
+          <colgroup>
+            <col v-for="col in columns" :key="col.key" :style="{ width: col.width }" />
+          </colgroup>
           <tbody>
             <tr
               v-for="{ data: row, index } in list"
@@ -79,7 +81,7 @@ const columns = [
                 'hover:bg-[var(--bg-card-hover)]',
               ]"
             >
-              <td class="px-4 py-2.5 text-center text-[var(--text-muted)] font-mono text-xs w-[60px]">
+              <td class="px-4 py-2.5 text-center text-[var(--text-muted)] font-mono text-xs">
                 {{ row.periodNumber }}
               </td>
               <td class="px-4 py-2.5 text-right font-mono text-xs text-[var(--text-secondary)]">
