@@ -85,7 +85,7 @@ const { data: investment, isLoading, error } = useQuery({
             </div>
             <div class="flex justify-between px-5 py-2.5 text-sm">
               <span class="text-[var(--text-muted)]">Taxa contratada</span>
-              <span class="font-medium text-[var(--text-primary)]">{{ investment.rateValue }}%</span>
+              <span class="font-medium text-[var(--text-primary)]">{{ formatPercent(investment.rateValue) }}</span>
             </div>
             <div class="flex justify-between px-5 py-2.5 text-sm">
               <span class="text-[var(--text-muted)]">Prazo</span>

@@ -160,7 +160,7 @@ async function handleCreateSnapshot() {
           <div class="divide-y divide-[var(--border-subtle)] -mx-5">
             <div class="flex justify-between px-5 py-2.5 text-sm">
               <span class="text-[var(--text-muted)]">Taxa</span>
-              <span class="font-medium text-[var(--text-primary)]">{{ simulation.interestRate }}% ({{ simulation.rateType }})</span>
+              <span class="font-medium text-[var(--text-primary)]">{{ formatPercent(simulation.interestRate) }} ({{ simulation.rateType }})</span>
             </div>
             <div class="flex justify-between px-5 py-2.5 text-sm">
               <span class="text-[var(--text-muted)]">Prazo</span>

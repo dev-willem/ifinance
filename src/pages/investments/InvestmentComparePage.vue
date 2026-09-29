@@ -34,7 +34,7 @@ const isLoading = computed(() => queries.value.some((q) => q.isLoading))
 const rows = [
   { label: 'Tipo', key: 'investmentType', fmt: (v: unknown) => String(v) },
   { label: 'Base da Taxa', key: 'rateBasis', fmt: (v: unknown) => String(v) },
-  { label: 'Taxa', key: 'rateValue', fmt: (v: unknown) => `${v}%` },
+  { label: 'Taxa', key: 'rateValue', fmt: (v: unknown) => formatPercent(v as number) },
   { label: 'Capital', key: 'principal', fmt: (v: unknown) => formatCurrency(v as number) },
   { label: 'Prazo', key: 'termDays', fmt: (v: unknown) => `${v} dias` },
   { label: 'Rend. Bruto', key: 'grossReturn', fmt: (v: unknown) => `+${formatCurrency(v as number)}` },
