@@ -36,8 +36,10 @@ const columns = [
 
 <template>
   <div class="rounded-xl border border-[var(--border-subtle)] overflow-hidden">
-    <!-- Header -->
     <div class="overflow-x-auto">
+    <div class="min-w-[720px]">
+    <!-- Header -->
+    <div>
       <table class="w-full text-sm" style="table-layout: fixed">
         <colgroup>
           <col v-for="col in columns" :key="col.key" :style="{ width: col.width }" />
@@ -63,8 +65,7 @@ const columns = [
     <div
       v-if="!loading && installments.length > 0"
       v-bind="containerProps"
-      class="overflow-auto"
-      style="height: 440px"
+      class="overflow-y-auto h-[60vh] max-h-[440px]"
     >
       <div v-bind="wrapperProps">
         <table class="w-full text-sm" style="table-layout: fixed">
@@ -119,8 +120,11 @@ const columns = [
       </div>
     </div>
 
+    </div>
+    </div>
+
     <!-- Footer summary -->
-    <div v-if="installments.length > 0" class="border-t border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-2 flex items-center gap-4 text-xs text-[var(--text-muted)]">
+    <div v-if="installments.length > 0" class="border-t border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--text-muted)]">
       <span class="flex items-center gap-1.5">
         <span class="w-2.5 h-2.5 rounded-full bg-indigo-500/50 inline-block" />
         Amortização

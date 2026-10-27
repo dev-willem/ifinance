@@ -39,11 +39,11 @@ const indexLabels: Record<EconomicIndex, string> = {
       <span class="text-xs text-[var(--text-muted)]">Fonte: BCB</span>
     </div>
 
-    <div v-if="isLoading" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+    <div v-if="isLoading" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
       <AppSkeleton v-for="i in 5" :key="i" height="64px" rounded="lg" />
     </div>
 
-    <div v-else-if="rates" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+    <div v-else-if="rates" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
       <div
         v-for="rate in rates"
         :key="rate.index"

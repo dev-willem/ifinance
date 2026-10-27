@@ -183,7 +183,7 @@ function isValid() {
         </div>
 
         <!-- Métricas -->
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-4">
           <AppCard>
             <p class="text-xs text-[var(--text-muted)]">Meta total</p>
             <p class="text-xl font-bold text-indigo-400 mt-1">{{ formatCurrency(result.targetAmount) }}</p>

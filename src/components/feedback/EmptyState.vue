@@ -17,7 +17,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-4 py-16 px-8 text-center">
+  <div class="flex flex-col items-center justify-center gap-4 py-10 sm:py-16 px-4 sm:px-8 text-center">
     <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--border-subtle)]">
       <slot name="icon">
         <svg class="w-8 h-8 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">

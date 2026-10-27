@@ -31,7 +31,7 @@ const collapsed = computed(() => ui.sidebarCollapsed)
       <TopBar />
 
       <main class="flex-1 pt-16">
-        <div class="px-6 py-6">
+        <div class="px-4 py-4 sm:px-6 sm:py-6">
           <Transition name="page" mode="out-in">
             <slot />
           </Transition>

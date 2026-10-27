@@ -83,8 +83,8 @@ async function handleCreateSnapshot() {
 <template>
   <div class="space-y-6 animate-fade-in">
     <!-- Header -->
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex min-w-0 items-center gap-4">
         <button
           class="rounded-lg p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] border border-[var(--border-subtle)] transition-colors"
           @click="router.back()"
@@ -93,9 +93,9 @@ async function handleCreateSnapshot() {
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <div>
+        <div class="min-w-0">
           <AppSkeleton v-if="isLoading" width="200px" height="28px" />
-          <h1 v-else class="text-2xl font-bold text-[var(--text-primary)]">{{ simulation?.name }}</h1>
+          <h1 v-else class="truncate text-xl sm:text-2xl font-bold text-[var(--text-primary)]">{{ simulation?.name }}</h1>
           <AppSkeleton v-if="isLoading" width="120px" height="16px" class="mt-1" />
           <p v-else class="text-sm text-[var(--text-muted)]">
             Criada em {{ formatDate(simulation?.createdAt) }}
@@ -103,7 +103,7 @@ async function handleCreateSnapshot() {
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <AppButton variant="secondary" size="sm" :disabled="!!exportingFormat" @click="snapshotModalOpen = true">
           Snapshot
         </AppButton>
@@ -117,12 +117,12 @@ async function handleCreateSnapshot() {
     </div>
 
     <!-- Loading state -->
-    <div v-if="isLoading" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div v-if="isLoading" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       <AppSkeleton v-for="i in 4" :key="i" height="80px" rounded="lg" />
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error" class="rounded-xl border border-rose-500/30 bg-rose-500/10 p-8 text-center text-sm text-rose-400">
+    <div v-else-if="error" class="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 sm:p-8 text-center text-sm text-rose-400">
       Erro ao carregar simulação.
       <button class="block mt-2 mx-auto underline" @click="router.back()">Voltar</button>
     </div>
@@ -130,22 +130,22 @@ async function handleCreateSnapshot() {
     <!-- Content -->
     <template v-else-if="simulation">
       <!-- Summary metrics -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Capital</p>
-          <p class="text-xl font-bold text-[var(--text-primary)] mt-1">{{ formatCurrency(simulation.principal) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-[var(--text-primary)] mt-1">{{ formatCurrency(simulation.principal) }}</p>
         </AppCard>
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Total Pago</p>
-          <p class="text-xl font-bold text-rose-400 mt-1">{{ formatCurrency(simulation.totalPaid) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-rose-400 mt-1">{{ formatCurrency(simulation.totalPaid) }}</p>
         </AppCard>
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Total de Juros</p>
-          <p class="text-xl font-bold text-amber-400 mt-1">{{ formatCurrency(simulation.totalInterest) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-amber-400 mt-1">{{ formatCurrency(simulation.totalInterest) }}</p>
         </AppCard>
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Encargos</p>
-          <p class="text-xl font-bold text-[var(--text-secondary)] mt-1">{{ formatCurrency(simulation.totalCharges) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-[var(--text-secondary)] mt-1">{{ formatCurrency(simulation.totalCharges) }}</p>
         </AppCard>
       </div>
 
@@ -222,7 +222,7 @@ async function handleCreateSnapshot() {
           </AppButton>
         </div>
 
-        <div v-if="prepayment" class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div v-if="prepayment" class="mt-4 grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           <div class="rounded-lg bg-[var(--bg-base)] border border-[var(--border-subtle)] p-3">
             <p class="text-xs text-[var(--text-muted)]">Saldo Devedor</p>
             <p class="text-base font-bold text-[var(--text-primary)]">{{ formatCurrency(prepayment.currentBalance) }}</p>

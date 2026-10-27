@@ -162,17 +162,17 @@ const systemLabels: Record<AmortizationSystem, string> = {
             class="flex items-center justify-between px-5 py-3 hover:bg-[var(--bg-card-hover)] transition-colors cursor-pointer"
             @click="router.push(`/simulations/${sim.id}`)"
           >
-            <div>
-              <p class="text-sm font-medium text-[var(--text-primary)]">{{ sim.name }}</p>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-medium text-[var(--text-primary)]">{{ sim.name }}</p>
               <p class="text-xs text-[var(--text-muted)]">{{ formatDate(sim.createdAt) }}</p>
             </div>
-            <div class="text-right">
+            <div class="shrink-0 text-right pl-3">
               <AppBadge tone="primary" variant="subtle">{{ systemLabels[sim.amortizationSystem] }}</AppBadge>
               <p class="text-xs text-[var(--text-secondary)] mt-1">{{ formatCurrency(sim.totalPaid) }}</p>
             </div>
           </div>
         </div>
-        <div v-else class="p-8 text-center text-sm text-[var(--text-muted)]">
+        <div v-else class="p-4 sm:p-8 text-center text-sm text-[var(--text-muted)]">
           Nenhuma simulação ainda.
           <button class="block mt-2 mx-auto text-indigo-400 hover:underline" @click="router.push('/simulations/new')">
             Criar primeira simulação
@@ -204,11 +204,11 @@ const systemLabels: Record<AmortizationSystem, string> = {
             class="flex items-center justify-between px-5 py-3 hover:bg-[var(--bg-card-hover)] transition-colors cursor-pointer"
             @click="router.push(`/investments/${inv.id}`)"
           >
-            <div>
-              <p class="text-sm font-medium text-[var(--text-primary)]">{{ inv.name }}</p>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-medium text-[var(--text-primary)]">{{ inv.name }}</p>
               <p class="text-xs text-[var(--text-muted)]">{{ formatDate(inv.createdAt) }}</p>
             </div>
-            <div class="text-right">
+            <div class="shrink-0 text-right pl-3">
               <AppBadge :tone="inv.isTaxExempt ? 'success' : 'neutral'" variant="subtle">
                 {{ inv.investmentType }}
               </AppBadge>
@@ -216,7 +216,7 @@ const systemLabels: Record<AmortizationSystem, string> = {
             </div>
           </div>
         </div>
-        <div v-else class="p-8 text-center text-sm text-[var(--text-muted)]">
+        <div v-else class="p-4 sm:p-8 text-center text-sm text-[var(--text-muted)]">
           Nenhum investimento ainda.
           <button class="block mt-2 mx-auto text-indigo-400 hover:underline" @click="router.push('/investments/new')">
             Criar primeiro investimento

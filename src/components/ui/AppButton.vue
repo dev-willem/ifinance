@@ -23,11 +23,11 @@ const buttonVariants = cva(
       },
       size: {
         xs: 'h-7 px-2.5 text-xs rounded',
-        sm: 'h-8 px-3 text-sm',
-        md: 'h-9 px-4 text-sm',
+        sm: 'h-10 sm:h-8 px-3 text-sm',
+        md: 'h-11 sm:h-9 px-4 text-sm',
         lg: 'h-11 px-6 text-base',
         xl: 'h-12 px-8 text-base',
-        icon: 'h-9 w-9',
+        icon: 'h-11 w-11 sm:h-9 sm:w-9',
       },
       fullWidth: {
         true: 'w-full',

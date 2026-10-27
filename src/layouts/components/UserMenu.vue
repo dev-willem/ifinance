@@ -28,7 +28,7 @@ async function handleLogout() {
 <template>
   <div ref="menuRef" class="relative">
     <button
-      class="flex items-center gap-2 rounded-lg p-1.5 hover:bg-[var(--bg-card-hover)] transition-colors"
+      class="flex items-center gap-2 rounded-lg p-2 hover:bg-[var(--bg-card-hover)] transition-colors"
       @click="open = !open"
     >
       <div

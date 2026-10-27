@@ -63,11 +63,11 @@ const inputValue = computed({
 
 const inputClasses = computed(() =>
   cn(
-    'w-full rounded-lg border bg-[var(--bg-card)] text-[var(--text-primary)] text-sm transition-all duration-150',
+    'w-full rounded-lg border bg-[var(--bg-card)] text-[var(--text-primary)] text-base sm:text-sm transition-all duration-150',
     'placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2',
     hasPrefixSlot.value ? 'pl-9' : 'pl-3',
     hasSuffixSlot.value ? 'pr-9' : 'pr-3',
-    'py-2 h-9',
+    'py-2 h-11 sm:h-9',
     hasError.value
       ? 'border-rose-500 focus:ring-rose-500/30 focus:border-rose-500'
       : 'border-[var(--border-subtle)] focus:ring-indigo-500/30 focus:border-indigo-500',

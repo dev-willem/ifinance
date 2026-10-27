@@ -35,7 +35,7 @@ const isNegativeChange = props.change !== undefined && props.change < 0
       <div>
         <p class="text-sm font-medium text-[var(--text-muted)]">{{ label }}</p>
         <AppSkeleton v-if="loading" width="120px" height="28px" class="mt-2" />
-        <p v-else class="mt-1.5 text-2xl font-bold text-[var(--text-primary)] tracking-tight">
+        <p v-else class="mt-1.5 text-xl sm:text-2xl font-bold text-[var(--text-primary)] tracking-tight tabular-nums">
           {{ value ?? '-' }}
         </p>
       </div>

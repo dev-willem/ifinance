@@ -39,34 +39,34 @@ const { data: investment, isLoading, error } = useQuery({
     </div>
 
     <!-- Loading -->
-    <div v-if="isLoading" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div v-if="isLoading" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       <AppSkeleton v-for="i in 4" :key="i" height="80px" rounded="lg" />
     </div>
 
     <!-- Error -->
-    <div v-else-if="error" class="rounded-xl border border-rose-500/30 bg-rose-500/10 p-8 text-center text-sm text-rose-400">
+    <div v-else-if="error" class="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 sm:p-8 text-center text-sm text-rose-400">
       Erro ao carregar investimento.
     </div>
 
     <!-- Content -->
     <template v-else-if="investment">
       <!-- Key metrics -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Capital Investido</p>
-          <p class="text-xl font-bold text-[var(--text-primary)] mt-1">{{ formatCurrency(investment.principal) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-[var(--text-primary)] mt-1">{{ formatCurrency(investment.principal) }}</p>
         </AppCard>
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Rendimento Bruto</p>
-          <p class="text-xl font-bold text-emerald-400 mt-1">+{{ formatCurrency(investment.grossReturn) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-emerald-400 mt-1">+{{ formatCurrency(investment.grossReturn) }}</p>
         </AppCard>
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">Rendimento Líquido</p>
-          <p class="text-xl font-bold text-emerald-500 mt-1">+{{ formatCurrency(investment.netReturn) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-emerald-500 mt-1">+{{ formatCurrency(investment.netReturn) }}</p>
         </AppCard>
         <AppCard>
           <p class="text-xs text-[var(--text-muted)]">IR Retido</p>
-          <p class="text-xl font-bold text-amber-400 mt-1">{{ investment.isTaxExempt ? 'Isento' : formatCurrency(investment.irAmount) }}</p>
+          <p class="break-words text-base sm:text-xl font-bold tabular-nums text-amber-400 mt-1">{{ investment.isTaxExempt ? 'Isento' : formatCurrency(investment.irAmount) }}</p>
         </AppCard>
       </div>
 
@@ -144,7 +144,7 @@ const { data: investment, isLoading, error } = useQuery({
               </div>
             </div>
 
-            <div class="pt-3 border-t border-[var(--border-subtle)] grid grid-cols-2 gap-4">
+            <div class="pt-3 border-t border-[var(--border-subtle)] grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <p class="text-xs text-[var(--text-muted)]">Taxa Bruta a.a.</p>
                 <p class="text-base font-bold text-emerald-400">{{ formatPercent(investment.grossAnnualRate) }}</p>

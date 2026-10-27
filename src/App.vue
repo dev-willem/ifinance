@@ -29,7 +29,7 @@ onMounted(() => {
 
 <template>
   <!-- Toast notification stack -->
-  <div class="fixed bottom-6 right-6 z-[100] flex flex-col-reverse gap-3 max-h-[calc(100vh-3rem)] overflow-hidden pointer-events-none">
+  <div class="fixed bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 z-[100] flex flex-col-reverse gap-3 max-h-[calc(100dvh-3rem)] overflow-hidden pointer-events-none">
     <div class="pointer-events-auto flex flex-col gap-3">
       <TransitionGroup
         enter-active-class="animate-slide-in-right"

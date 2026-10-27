@@ -193,7 +193,7 @@ const metricRows = [
     <!-- Tabela de resultados -->
     <AppCard v-if="results" :padding="'none'" class="animate-slide-in-right">
       <div class="overflow-x-auto">
-        <table class="w-full text-sm">
+        <table class="w-full min-w-[560px] text-sm">
           <thead>
             <tr class="border-b border-[var(--border-subtle)] bg-[var(--bg-base)]">
               <th class="px-5 py-4 text-left font-medium text-[var(--text-muted)] w-40">Métrica</th>

@@ -5,7 +5,7 @@ const router = useRouter()
 
 <template>
   <div class="min-h-screen bg-[var(--bg-base)] flex items-center justify-center">
-    <div class="text-center space-y-6 px-8">
+    <div class="text-center space-y-6 px-4 sm:px-8">
       <div class="text-8xl font-black text-[var(--border-subtle)]">404</div>
       <div>
         <h1 class="text-2xl font-bold text-[var(--text-primary)]">Página não encontrada</h1>

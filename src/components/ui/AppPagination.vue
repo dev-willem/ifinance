@@ -61,7 +61,7 @@ const visiblePages = computed(() => {
         <span>Por página:</span>
         <select
           :value="pageSize"
-          class="h-7 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] text-xs px-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          class="h-9 sm:h-7 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] text-xs px-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
           @change="emit('page-size-change', Number(($event.target as HTMLSelectElement).value))"
         >
           <option v-for="size in PAGE_SIZE_OPTIONS" :key="size" :value="size">{{ size }}</option>
@@ -72,7 +72,7 @@ const visiblePages = computed(() => {
       <nav class="flex items-center gap-1">
         <button
           :disabled="currentPage === 0"
-          class="flex items-center justify-center h-8 w-8 rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-indigo-500/50 hover:text-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          class="flex items-center justify-center h-10 w-10 sm:h-8 sm:w-8 rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-indigo-500/50 hover:text-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           @click="emit('page-change', currentPage - 1)"
         >
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -85,7 +85,7 @@ const visiblePages = computed(() => {
           :key="page"
           :disabled="page === '...'"
           :class="[
-            'flex items-center justify-center h-8 min-w-[2rem] px-2 rounded-lg text-sm font-medium transition-colors',
+            'flex items-center justify-center h-10 min-w-[2.5rem] sm:h-8 sm:min-w-[2rem] px-2 rounded-lg text-sm font-medium transition-colors',
             page === currentPage
               ? 'bg-indigo-500 text-white border border-indigo-500'
               : page === '...'
@@ -99,7 +99,7 @@ const visiblePages = computed(() => {
 
         <button
           :disabled="currentPage >= totalPages - 1"
-          class="flex items-center justify-center h-8 w-8 rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-indigo-500/50 hover:text-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          class="flex items-center justify-center h-10 w-10 sm:h-8 sm:w-8 rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-indigo-500/50 hover:text-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           @click="emit('page-change', currentPage + 1)"
         >
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

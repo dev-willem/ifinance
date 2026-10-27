@@ -68,7 +68,7 @@ onUnmounted(() => {
 <template>
   <div
     :class="[
-      'relative flex items-start gap-3 rounded-xl border p-4 shadow-lg min-w-[320px] max-w-[420px]',
+      'relative flex items-start gap-3 rounded-xl border p-4 shadow-lg w-[calc(100vw-2rem)] sm:w-auto sm:min-w-[320px] max-w-[420px]',
       'animate-slide-in-right',
       config.bg,
     ]"

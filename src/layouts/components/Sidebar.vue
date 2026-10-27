@@ -34,7 +34,8 @@ async function handleLogout() {
       'border-r border-[var(--border-subtle)] bg-[var(--bg-card)]',
       'lg:translate-x-0',
       ui.mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
-      collapsed ? 'w-16' : 'w-[260px]',
+      'w-[260px] max-w-[85vw]',
+      collapsed ? 'lg:w-16' : 'lg:w-[260px]',
     ]"
   >
     <!-- Logo -->
@@ -45,7 +46,7 @@ async function handleLogout() {
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
         </div>
-        <span v-if="!collapsed" class="text-base font-bold text-[var(--text-primary)] truncate">iFinance</span>
+        <span :class="collapsed ? 'lg:hidden' : ''" class="text-base font-bold text-[var(--text-primary)] truncate">iFinance</span>
       </router-link>
     </div>
 
@@ -53,7 +54,7 @@ async function handleLogout() {
     <nav class="flex-1 overflow-y-auto py-4 px-3">
       <div v-for="section in NAV_ITEMS" :key="section.section" class="mb-6">
         <p
-          v-if="!collapsed"
+          :class="collapsed ? 'lg:hidden' : ''"
           class="mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]"
         >
           {{ section.section }}
@@ -69,7 +70,7 @@ async function handleLogout() {
               isActive(item.path)
                 ? 'bg-indigo-500/15 text-indigo-400'
                 : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]',
-              collapsed ? 'justify-center' : '',
+              collapsed ? 'lg:justify-center' : '',
             ]"
             @click="ui.closeMobileSidebar()"
           >
@@ -114,7 +115,7 @@ async function handleLogout() {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </span>
-            <span v-if="!collapsed" class="truncate">{{ item.label }}</span>
+            <span :class="collapsed ? 'lg:hidden' : ''" class="truncate">{{ item.label }}</span>
           </router-link>
         </div>
       </div>
@@ -126,7 +127,7 @@ async function handleLogout() {
       <button
         :class="[
           'flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)] transition-all',
-          collapsed ? 'justify-center' : '',
+          collapsed ? 'lg:justify-center' : '',
         ]"
         :title="collapsed ? (ui.theme === 'dark' ? 'Modo claro' : 'Modo escuro') : undefined"
         @click="ui.toggleTheme()"
@@ -137,20 +138,20 @@ async function handleLogout() {
         <svg v-else class="w-[18px] h-[18px] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
-        <span v-if="!collapsed">{{ ui.theme === 'dark' ? 'Modo Claro' : 'Modo Escuro' }}</span>
+        <span :class="collapsed ? 'lg:hidden' : ''">{{ ui.theme === 'dark' ? 'Modo Claro' : 'Modo Escuro' }}</span>
       </button>
 
       <!-- User info -->
-      <div v-if="auth.isAuthenticated" :class="['flex items-center gap-3 rounded-lg px-2.5 py-2', collapsed ? 'justify-center' : '']">
+      <div v-if="auth.isAuthenticated" :class="['flex items-center gap-3 rounded-lg px-2.5 py-2', collapsed ? 'lg:justify-center' : '']">
         <div class="h-7 w-7 flex-shrink-0 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold text-white">
           {{ auth.userName.charAt(0).toUpperCase() }}
         </div>
-        <div v-if="!collapsed" class="flex-1 min-w-0">
+        <div :class="collapsed ? 'lg:hidden' : ''" class="flex-1 min-w-0">
           <p class="text-xs font-medium text-[var(--text-secondary)] truncate">{{ auth.userName }}</p>
           <p class="text-xs text-[var(--text-muted)] truncate">{{ auth.userEmail }}</p>
         </div>
         <button
-          v-if="!collapsed"
+          :class="collapsed ? 'lg:hidden' : ''"
           class="flex-shrink-0 rounded p-1 text-[var(--text-muted)] hover:text-rose-400 transition-colors"
           title="Sair"
           @click="handleLogout"
@@ -165,17 +166,17 @@ async function handleLogout() {
       <button
         :class="[
           'flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium text-[var(--text-muted)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)] transition-all',
-          collapsed ? 'justify-center' : '',
+          collapsed ? 'lg:justify-center' : '',
         ]"
         @click="ui.toggleSidebar()"
       >
         <svg
-          :class="['w-[18px] h-[18px] flex-shrink-0 transition-transform duration-300', collapsed ? 'rotate-180' : '']"
+          :class="['w-[18px] h-[18px] flex-shrink-0 transition-transform duration-300', collapsed ? 'lg:rotate-180' : '']"
           fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
         </svg>
-        <span v-if="!collapsed">Recolher</span>
+        <span :class="collapsed ? 'lg:hidden' : ''">Recolher</span>
       </button>
     </div>
   </aside>

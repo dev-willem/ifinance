@@ -45,7 +45,7 @@ function close() {
       />
       <DialogContent
         :class="[
-          'fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-full',
+          'fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-h-[90dvh] overflow-y-auto',
           sizeClasses[size],
           'bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-2xl shadow-2xl',
           'data-[state=open]:animate-scale-in data-[state=closed]:animate-fade-out',
@@ -55,7 +55,7 @@ function close() {
         @interact-outside="close"
       >
         <!-- Header -->
-        <div v-if="title || $slots.header" class="flex items-center justify-between px-6 py-4 border-b border-[var(--border-subtle)]">
+        <div v-if="title || $slots.header" class="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[var(--border-subtle)]">
           <DialogTitle class="text-base font-semibold text-[var(--text-primary)]">
             <slot name="header">{{ title }}</slot>
           </DialogTitle>
@@ -70,12 +70,12 @@ function close() {
         </div>
 
         <!-- Body -->
-        <div class="px-6 py-5">
+        <div class="px-4 sm:px-6 py-5">
           <slot />
         </div>
 
         <!-- Footer -->
-        <div v-if="$slots.footer" class="px-6 py-4 border-t border-[var(--border-subtle)] flex items-center justify-end gap-3">
+        <div v-if="$slots.footer" class="px-4 sm:px-6 py-4 border-t border-[var(--border-subtle)] flex items-center justify-end gap-3">
           <slot name="footer" />
         </div>
       </DialogContent>

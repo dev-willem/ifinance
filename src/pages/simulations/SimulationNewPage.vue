@@ -150,7 +150,7 @@ const steps = [
     </div>
 
     <!-- Step indicators -->
-    <div class="flex items-center gap-0">
+    <div class="flex items-center gap-0 overflow-x-auto">
       <div
         v-for="(step, i) in steps"
         :key="step.number"
@@ -181,7 +181,7 @@ const steps = [
             {{ step.label }}
           </span>
         </div>
-        <div v-if="i < steps.length - 1" class="mx-4 h-px w-12 bg-[var(--border-subtle)]" />
+        <div v-if="i < steps.length - 1" class="mx-2 sm:mx-4 h-px w-6 sm:w-12 bg-[var(--border-subtle)]" />
       </div>
     </div>
 
@@ -365,7 +365,7 @@ const steps = [
           </div>
         </div>
 
-        <div class="flex justify-between mt-6">
+        <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between mt-6">
           <AppButton variant="secondary" type="button" @click="prevStep">
             <template #icon-left>
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -422,7 +422,7 @@ const steps = [
           </div>
         </div>
 
-        <div class="flex justify-between mt-6">
+        <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between mt-6">
           <AppButton variant="secondary" type="button" @click="prevStep">
             <template #icon-left>
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

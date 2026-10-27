@@ -27,7 +27,7 @@ O Vite faz proxy das chamadas `/api/`, `/oauth2/`, `/login/`, `/logout` para o b
 backend (ex.: rodando em Docker na porta 8080, ou já publicado):
 
 ```bash
-VITE_DEV_BACKEND_URL=http://localhost:8080 pnpm dev
+VITE_DEV_BACKEND_URL=http://localhost:8888 pnpm dev
 ```
 
 Suba o backend separadamente a partir do repo

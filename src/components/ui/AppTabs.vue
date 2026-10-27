@@ -20,13 +20,13 @@ const emit = defineEmits<{
 
 <template>
   <div class="border-b border-[var(--border-subtle)]">
-    <nav class="flex gap-0 -mb-px overflow-x-auto">
+    <nav class="flex gap-0 -mb-px overflow-x-auto [scrollbar-width:none]">
       <button
         v-for="tab in tabs"
         :key="tab.key"
         :disabled="tab.disabled"
         :class="[
-          'flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-all duration-150 border-b-2',
+          'flex shrink-0 items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-all duration-150 border-b-2',
           modelValue === tab.key
             ? 'border-indigo-500 text-indigo-400'
             : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:border-[var(--border-subtle)]',

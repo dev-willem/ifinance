@@ -66,7 +66,7 @@
     </div>
 
     <!-- Right: Auth form -->
-    <div class="flex flex-1 items-center justify-center p-8">
+    <div class="flex flex-1 items-center justify-center p-4 sm:p-8">
       <div class="w-full max-w-sm">
         <!-- Mobile logo -->
         <div class="lg:hidden flex items-center gap-3 mb-8 justify-center">

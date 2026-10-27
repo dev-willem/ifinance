@@ -87,17 +87,17 @@ const skeletonRows = computed(() => Array.from({ length: props.pageSize }, (_, i
 <template>
   <div class="flex flex-col gap-4">
     <div class="overflow-x-auto rounded-xl border border-[var(--border-subtle)]">
-      <table class="w-full text-sm">
+      <table class="w-full min-w-[640px] text-sm">
         <thead>
           <tr class="border-b border-[var(--border-subtle)] bg-[var(--bg-card)]">
-            <th v-if="selectable" class="w-10 px-4 py-3">
+            <th v-if="selectable" class="w-10 px-3 sm:px-4 py-3">
               <span class="sr-only">Selecionar</span>
             </th>
             <th
               v-for="col in columns"
               :key="String(col.key)"
               :class="[
-                'px-4 py-3 text-left font-medium text-[var(--text-muted)] whitespace-nowrap',
+                'px-3 sm:px-4 py-3 text-left font-medium text-[var(--text-muted)] whitespace-nowrap',
                 col.sortable ? 'cursor-pointer hover:text-[var(--text-secondary)] select-none' : '',
                 col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left',
               ]"
@@ -131,10 +131,10 @@ const skeletonRows = computed(() => Array.from({ length: props.pageSize }, (_, i
           <!-- Loading skeleton -->
           <template v-if="loading">
             <tr v-for="i in skeletonRows" :key="i" class="bg-[var(--bg-card)]">
-              <td v-if="selectable" class="px-4 py-3">
+              <td v-if="selectable" class="px-3 sm:px-4 py-3">
                 <AppSkeleton width="16px" height="16px" rounded="sm" />
               </td>
-              <td v-for="col in columns" :key="String(col.key)" class="px-4 py-3">
+              <td v-for="col in columns" :key="String(col.key)" class="px-3 sm:px-4 py-3">
                 <AppSkeleton :width="col.width ?? '80%'" height="14px" />
               </td>
             </tr>
@@ -149,7 +149,7 @@ const skeletonRows = computed(() => Array.from({ length: props.pageSize }, (_, i
               :class="isSelected(row) ? 'ring-1 ring-inset ring-indigo-500/40 bg-indigo-500/5' : ''"
               @click="emit('row-click', row)"
             >
-              <td v-if="selectable" class="px-4 py-3" @click.stop>
+              <td v-if="selectable" class="px-3 sm:px-4 py-3" @click.stop>
                 <input
                   type="checkbox"
                   :checked="isSelected(row)"
@@ -161,7 +161,7 @@ const skeletonRows = computed(() => Array.from({ length: props.pageSize }, (_, i
                 v-for="col in columns"
                 :key="String(col.key)"
                 :class="[
-                  'px-4 py-3 text-[var(--text-secondary)] whitespace-nowrap',
+                  'px-3 sm:px-4 py-3 text-[var(--text-secondary)] whitespace-nowrap',
                   col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : '',
                 ]"
               >

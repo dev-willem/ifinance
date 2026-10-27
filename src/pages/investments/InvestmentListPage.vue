@@ -57,12 +57,12 @@ function handleCompare() {
 <template>
   <div class="space-y-5 animate-fade-in">
     <!-- Header -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-[var(--text-primary)]">Investimentos</h1>
+        <h1 class="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">Investimentos</h1>
         <p class="text-sm text-[var(--text-muted)]">{{ data?.totalElements ?? 0 }} investimentos no total</p>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex flex-wrap items-center gap-3">
         <AppButton
           v-if="selectedIds.length >= 2"
           variant="secondary"

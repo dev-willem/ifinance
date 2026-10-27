@@ -54,7 +54,7 @@ function loginWithGoogle() {
     </div>
 
     <div class="mt-8 border-t border-[var(--border-subtle)] pt-8">
-      <div class="grid grid-cols-3 gap-4 text-center">
+      <div class="grid grid-cols-1 min-[420px]:grid-cols-3 gap-3 sm:gap-4 text-center">
         <div>
           <div class="text-lg font-bold text-indigo-400">SAC</div>
           <div class="text-xs text-[var(--text-muted)]">PRICE · AMERICAN</div>

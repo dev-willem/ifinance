@@ -44,7 +44,7 @@ const hasError = computed(() => !!props.error)
 
 const selectClasses = computed(() =>
   cn(
-    'w-full rounded-lg border bg-[var(--bg-card)] text-[var(--text-primary)] text-sm h-9 px-3 py-2',
+    'w-full rounded-lg border bg-[var(--bg-card)] text-[var(--text-primary)] text-base sm:text-sm h-11 sm:h-9 px-3 py-2',
     'transition-all duration-150 focus:outline-none focus:ring-2 appearance-none cursor-pointer',
     hasError.value
       ? 'border-rose-500 focus:ring-rose-500/30 focus:border-rose-500'

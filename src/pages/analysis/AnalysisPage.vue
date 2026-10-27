@@ -106,7 +106,7 @@ function calculate() {
                   type="number"
                   :placeholder="i === 0 ? 'Investimento inicial (negativo)' : 'Retorno do período'"
                   :class="[
-                    'w-full rounded-lg border bg-[var(--bg-card)] text-sm h-9 px-3 py-2 font-mono',
+                    'w-full rounded-lg border bg-[var(--bg-card)] text-base sm:text-sm h-11 sm:h-9 px-3 py-2 font-mono',
                     'focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500',
                     'border-[var(--border-subtle)] placeholder:text-[var(--text-muted)] transition-colors',
                     cf.value !== null && cf.value < 0 ? 'text-rose-400' : 'text-emerald-400',
@@ -115,7 +115,7 @@ function calculate() {
               </div>
               <button
                 v-if="cashFlows.length > 2"
-                class="flex-shrink-0 rounded p-1.5 text-[var(--text-muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                class="flex-shrink-0 rounded p-2.5 sm:p-1.5 text-[var(--text-muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
                 @click="removeCashFlow(i)"
               >
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -187,7 +187,7 @@ function calculate() {
         </div>
 
         <!-- Metrics grid -->
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <AppCard>
             <p class="text-xs text-[var(--text-muted)]">VPL</p>
             <p :class="['text-xl font-bold mt-1', result.npvPositive ? 'text-emerald-400' : 'text-rose-400']">
