@@ -1,1 +1,9 @@
+# Proxy do backend: o navegador só fala com o domínio do Netlify, então o cookie de sessão
+# é first-party (Firefox/Safari bloqueiam cookie cross-site). Exige VITE_API_BASE_URL vazio.
+/api/*           https://64-181-167-33.sslip.io/api/:splat           200
+/oauth2/*        https://64-181-167-33.sslip.io/oauth2/:splat        200
+/login/oauth2/*  https://64-181-167-33.sslip.io/login/oauth2/:splat  200
+/logout          https://64-181-167-33.sslip.io/logout               200
+
+# SPA fallback
 /*  /index.html  200
