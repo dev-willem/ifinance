@@ -5,7 +5,8 @@ import { fileURLToPath, URL } from 'node:url'
 // Vitest ignora vite.config.ts quando este arquivo existe; só o plugin vue é necessário
 // (AutoImport/Components regenerariam os .d.ts compartilhados)
 export default defineConfig({
-  plugins: [vue()],
+  // vitest embute os tipos do Vite 7; o plugin-vue instalado tipa contra o Vite 8 (funciona em runtime)
+  plugins: [vue() as never],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

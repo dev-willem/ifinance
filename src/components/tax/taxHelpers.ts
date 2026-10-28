@@ -62,7 +62,7 @@ export function buildTaxMatrix(regimes: RegimeResult[]): { tax: TaxType; amounts
 }
 
 /** Eligible regimes from the cheapest to the most expensive. */
-export function rankEligible(regimes: RegimeResult[]): RegimeResult[] {
+export function rankEligible(regimes: RegimeResult[]): (RegimeResult & { total: number })[] {
   return regimes
     .filter((r): r is RegimeResult & { total: number } => r.eligible && r.total != null)
     .sort((a, b) => a.total - b.total)

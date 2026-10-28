@@ -121,9 +121,9 @@ describe('breakEvenChartData', () => {
 describe('compositionSegments', () => {
   it('widths sum to 1 and negative amounts take no width', () => {
     const segs = compositionSegments([
-      { key: 'COST', label: 'Custo', amount: 60 },
-      { key: 'SALES_TAX', label: 'Impostos', amount: 40 },
-      { key: 'PROFIT', label: 'Lucro', amount: -0.01 },
+      { key: 'COST', label: 'Custo', amount: 60, rate: 0.6 },
+      { key: 'SALES_TAX', label: 'Impostos', amount: 40, rate: 0.4 },
+      { key: 'PROFIT', label: 'Lucro', amount: -0.01, rate: 0 },
     ])
     expect(segs.map((s) => s.width)).toEqual([0.6, 0.4, 0])
   })

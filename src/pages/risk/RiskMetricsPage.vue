@@ -354,7 +354,7 @@ const textareaClass =
             :series="wealthSeries"
             :baseline="1"
             :format-y="formatWealth"
-            aria-label="Evolução do patrimônio acumulado do ativo e do benchmark"
+            label="Evolução do patrimônio acumulado do ativo e do benchmark"
           />
         </AppCard>
         <AppCard>
@@ -366,7 +366,7 @@ const textareaClass =
             :baseline="0"
             area
             :format-y="formatDd"
-            aria-label="Queda percentual do ativo em relação ao pico anterior"
+            label="Queda percentual do ativo em relação ao pico anterior"
           />
         </AppCard>
       </div>

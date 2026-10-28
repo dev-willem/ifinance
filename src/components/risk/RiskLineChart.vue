@@ -15,7 +15,7 @@ interface Props {
   baseline: number
   /** Fill between the first series and the baseline (underwater chart) */
   area?: boolean
-  ariaLabel: string
+  label: string
   formatY: (v: number) => string
 }
 
@@ -43,7 +43,7 @@ const areaPath = computed(() => {
       class="w-full h-48 sm:h-56"
       preserveAspectRatio="none"
       role="img"
-      :aria-label="ariaLabel"
+      :aria-label="label"
     >
       <line
         :x1="box.padding"

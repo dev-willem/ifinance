@@ -169,7 +169,7 @@ const bars = computed(() =>
             <template #header>
               <h2 class="text-sm font-semibold text-[var(--text-secondary)]">Repartição dos tributos</h2>
             </template>
-            <TaxBars :items="bars" aria-label="Valor de cada tributo dentro do DAS" />
+            <TaxBars :items="bars" label="Valor de cada tributo dentro do DAS" />
             <div class="mt-4 overflow-x-auto">
               <table class="w-full text-sm">
                 <thead>

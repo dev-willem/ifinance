@@ -12,7 +12,7 @@ interface BarItem {
   highlight?: boolean
 }
 
-const props = defineProps<{ items: BarItem[]; ariaLabel: string }>()
+const props = defineProps<{ items: BarItem[]; label: string }>()
 
 const { formatCurrency } = useFormatBR()
 const ROW_HEIGHT = 44
@@ -24,7 +24,7 @@ const widths = computed(() => barWidths(props.items.map((i) => i.value)))
     width="100%"
     :height="items.length * ROW_HEIGHT"
     role="img"
-    :aria-label="ariaLabel"
+    :aria-label="label"
     class="block"
   >
     <g v-for="(item, i) in items" :key="item.key" :transform="`translate(0, ${i * ROW_HEIGHT})`">

@@ -204,7 +204,7 @@ function cellClass(regime: string) {
           <template #header>
             <h2 class="text-sm font-semibold text-[var(--text-secondary)]">Carga tributária anual</h2>
           </template>
-          <TaxBars :items="bars" aria-label="Total de tributos por regime" />
+          <TaxBars :items="bars" label="Total de tributos por regime" />
         </AppCard>
 
         <AppCard padding="none">
