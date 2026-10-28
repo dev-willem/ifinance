@@ -16,6 +16,8 @@ export const useAuthStore = defineStore('auth', () => {
   const userName = computed(() => user.value?.name ?? '')
   const userEmail = computed(() => user.value?.email ?? '')
   const userPicture = computed(() => user.value?.picture ?? '')
+  const role = computed(() => user.value?.role ?? null)
+  const isAdmin = computed(() => role.value === 'ADMIN')
 
   async function fetchCurrentUser(): Promise<void> {
     loading.value = true
@@ -80,6 +82,8 @@ export const useAuthStore = defineStore('auth', () => {
     userName,
     userEmail,
     userPicture,
+    role,
+    isAdmin,
     init,
     fetchCurrentUser,
     logout,

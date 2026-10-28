@@ -1,6 +1,6 @@
 # iFinance — Documentação Consolidada
 
-**Versão:** 1.0 — estado atual do sistema  
+**Versão:** 3.0 — estado atual do sistema (v1, v2 e v3 implementados)  
 **Autor:** Willemberg Filho  
 **Stack:** Java 25 · Spring Boot 4.0.6 · PostgreSQL · Arquitetura Hexagonal
 
@@ -103,13 +103,16 @@ A tabela abaixo organiza todas as funcionalidades por versão e indica o status 
 | **v2** | Comparação direta de produtos de renda fixa | ✅ |
 | **v2** | Planejamento de aposentadoria (FIRE / regra dos 4%) | ✅ |
 | **v2** | Calculadora de reserva de emergência | ✅ |
-| **v3** | Métricas de risco (Sharpe, drawdown, beta, alpha) | ❌ |
-| **v3** | Simulação de Monte Carlo | ❌ |
-| **v3** | DRE simulado, ponto de equilíbrio, markup | ❌ |
-| **v3** | Depreciação de ativos | ❌ |
-| **v3** | Simulação de regimes tributários (Simples, Presumido, Real) | ❌ |
-| **v3** | Módulo trabalhista (FGTS, rescisão, IRRF, INSS) | ❌ |
-| **v3** | GitHub OAuth2 | ❌ |
+| **v3** | Métricas de risco (Sharpe, drawdown, beta, alpha) | ✅ |
+| **v3** | Simulação de Monte Carlo | ✅ |
+| **v3** | DRE simulado, ponto de equilíbrio, markup | ✅ |
+| **v3** | Depreciação de ativos | ✅ |
+| **v3** | Simulação de regimes tributários (Simples, Presumido, Real) | ✅ |
+| **v3** | Módulo trabalhista (FGTS, rescisão, IRRF, INSS) | ✅ |
+| **v3** | GitHub OAuth2 | ✅ |
+| **v3** | Capacidade de crédito (comprometimento de renda, PRICE/SAC) | ✅ |
+| **v3** | Desconto simples e composto (racional e comercial) | ✅ |
+| **v3** | Controle de acesso por perfil (USER / ADMIN) | ✅ |
 | **v2** | Frontend (Vue 3 + Vite + TailwindCSS v4) | ✅ |
 
 **Legenda:** ✅ implementado · ⚠️ parcialmente · ❌ não implementado
@@ -133,8 +136,8 @@ A tabela abaixo organiza todas as funcionalidades por versão e indica o status 
 | Correção monetária | Aplicada sobre saldo devedor por índice do BCB | ✅ |
 | Conversão de taxas | Nominal ↔ Efetiva; Anual ↔ Periódica; Fisher | ✅ |
 | Liquidação antecipada | Valor presente das parcelas futuras + desconto | ✅ |
-| Capacidade de crédito | Comprometimento de renda (30%) | ❌ |
-| Desconto simples/composto | Racional (por dentro) e comercial (por fora) | ❌ |
+| Capacidade de crédito | Comprometimento de renda (padrão 30%); valor máximo financiável PRICE/SAC | ✅ |
+| Desconto simples/composto | Racional (por dentro) e comercial (por fora), com taxa efetiva implícita | ✅ |
 
 ### 3.2 Investimentos e renda fixa
 
@@ -152,10 +155,10 @@ A tabela abaixo organiza todas as funcionalidades por versão e indica o status 
 | TIR | Taxa que torna VPL = 0 (Newton-Raphson) | ✅ |
 | Payback simples | Período de recuperação do investimento | ✅ |
 | Payback descontado | Payback considerando valor do dinheiro no tempo | ✅ |
-| Índice de Sharpe | `(R − Rf) / σ` | ❌ |
-| Drawdown máximo | Queda máxima em período | ❌ |
-| Beta e Alpha | Sensibilidade e retorno excedente ao benchmark | ❌ |
-| Monte Carlo | Múltiplas iterações com variância nos retornos | ❌ |
+| Índice de Sharpe | `(R − Rf) / σ` (também Sortino, Calmar, VaR/CVaR históricos) | ✅ |
+| Drawdown máximo | Queda máxima em período, com pico, vale e recuperação | ✅ |
+| Beta e Alpha | Sensibilidade e alpha de Jensen; correlação, R², tracking error, information ratio | ✅ |
+| Monte Carlo | Retornos mensais log-normais, até 20.000 iterações, percentis e probabilidade de meta | ✅ |
 
 ### 3.3 Índices econômicos
 
@@ -171,21 +174,21 @@ A tabela abaixo organiza todas as funcionalidades por versão e indica o status 
 
 | Cálculo | Descrição | Status |
 |---|---|:---:|
-| Reserva de emergência | 6–12 meses de custos fixos | ❌ |
-| Aposentadoria FIRE | Montante para retirada perpétua (regra dos 4%) | ❌ |
+| Reserva de emergência | 6–12 meses de custos fixos | ✅ |
+| Aposentadoria FIRE | Montante para retirada perpétua (regra dos 4%) | ✅ |
 | Comparação de cenários | Salvar e comparar múltiplas simulações | ✅ |
 
 ### 3.5 Empresarial e tributário
 
 | Cálculo | Descrição | Status |
 |---|---|:---:|
-| DRE simulado | Margem bruta, EBITDA, lucro líquido | ❌ |
-| Ponto de equilíbrio | `Qtd = CF / (PV − CV)` | ❌ |
-| Markup | Índice sobre custo para cobrir despesas e lucro | ❌ |
-| Depreciação | Linear e acelerada | ❌ |
-| Simples Nacional | Alíquotas progressivas por faixa de receita | ❌ |
-| Lucro Presumido / Real | Comparativo de regimes tributários | ❌ |
-| Folha de pagamento | INSS, IRRF, FGTS, férias, 13º, rescisão | ❌ |
+| DRE simulado | Margem bruta, EBITDA, lucro líquido, projeção mensal | ✅ |
+| Ponto de equilíbrio | `Qtd = CF / (PV − CV)`; contábil, econômico e financeiro, margem de segurança, GAO | ✅ |
+| Markup | Markup divisor e multiplicador, composição do preço | ✅ |
+| Depreciação | Linear, soma dos dígitos, saldos decrescentes, unidades produzidas; acelerada por turnos (RIR/2018) | ✅ |
+| Simples Nacional | Anexos I–V, alíquota efetiva, Fator R, repartição dos tributos | ✅ |
+| Lucro Presumido / Real | Comparativo anual com o Simples e indicação do regime mais barato | ✅ |
+| Folha de pagamento | INSS, IRRF (com a redução da Lei 15.270/2025), FGTS, férias, 13º, rescisão | ✅ |
 
 ---
 
@@ -516,6 +519,34 @@ Endpoint: `GET /api/v1/simulations/{id}/export?format=pdf|xlsx`
 
 **Excel (Apache POI 5):** 2 abas — "Parâmetros" com metadados da simulação e "Cronograma" com todas as colunas da tabela de amortização.
 
+### 7.5 Crédito
+
+`POST /api/v1/credit/capacity` calcula a parcela máxima pelo comprometimento de renda (padrão 30%, descontando dívidas existentes), o valor máximo financiável em PRICE (`PV = PMT·[1−(1+i)^−n]/i`) ou SAC (`PV = PMT / (1/n + i)`) e, para um valor desejado, a parcela inicial, o comprometimento resultante e o menor prazo que cabe no limite.
+
+`POST /api/v1/credit/discount` compara as quatro modalidades de desconto de um título — racional e comercial, simples e composto — com valor presente, desconto e a taxa efetiva que o tomador realmente paga.
+
+### 7.6 Risco
+
+`POST /api/v1/risk/metrics` recebe uma série de retornos ou preços (e opcionalmente um benchmark) e devolve retorno acumulado e anualizado, volatilidade, Sharpe, Sortino, drawdown máximo, Calmar, VaR e CVaR históricos, beta, alpha de Jensen, correlação, R², tracking error e information ratio.
+
+`POST /api/v1/risk/monte-carlo` simula a evolução de um patrimônio com retornos mensais log-normais (calibrados para que o crescimento anual esperado seja `1 + μ`), aportes mensais com reajuste anual opcional e semente reprodutível. Retorna percentis finais, faixas anuais para o gráfico em leque, histograma e as probabilidades de atingir a meta e de terminar abaixo do total aportado.
+
+### 7.7 Empresarial
+
+DRE simulado, ponto de equilíbrio (contábil, econômico e financeiro) e markup em `/api/v1/business/*`. A depreciação (`/api/v1/business/depreciation`) gera o cronograma anual por método, compara os métodos e expõe as taxas de referência da Receita Federal (IN RFB 1.700/2017, Anexo III). O valor contábil nunca fica abaixo do residual e a depreciação acumulada fecha no centavo.
+
+### 7.8 Tributário
+
+`POST /api/v1/tax/simples` calcula o DAS do mês (LC 123/2006 com a LC 155/2016): faixa, alíquota nominal, parcela a deduzir, alíquota efetiva, Fator R para os Anexos III/V e repartição dos tributos. `POST /api/v1/tax/compare` compara Simples, Lucro Presumido e Lucro Real no ano e aponta o regime elegível mais barato. A Reforma Tributária (CBS/IBS) não é modelada além de um aviso.
+
+### 7.9 Trabalhista
+
+Salário líquido, férias (com abono pecuniário), 13º salário e rescisão (sem justa causa, pedido de demissão, justa causa e acordo do art. 484-A) em `/api/v1/labor/*`. As tabelas de INSS e IRRF são versionadas por ano, incluindo a redução do IRRF da Lei 15.270/2025 a partir de 2026. Os resultados são estimativas.
+
+### 7.10 Autenticação e perfis
+
+Login com Google ou GitHub (OAuth2). Uma conta GitHub só é vinculada a um usuário existente por e-mail **verificado**. Cada usuário tem o perfil `USER` ou `ADMIN`; e-mails listados em `APP_ADMIN_EMAILS` viram ADMIN no login. `/api/v1/admin/**` exige ADMIN e oferece a lista de usuários, a troca de perfil e estatísticas.
+
 ---
 
 ## 8. API REST
@@ -580,6 +611,57 @@ Todos os endpoints estão sob o prefixo `/api/v1`. A documentação interativa e
   "discountedPaybackPeriod": 4
 }
 ```
+
+### Crédito
+
+| Método | Endpoint | Descrição | Status HTTP |
+|---|---|---|---|
+| `POST` | `/api/v1/credit/capacity` | Capacidade de crédito (PRICE/SAC) | 200 OK |
+| `POST` | `/api/v1/credit/discount` | Desconto racional e comercial, simples e composto | 200 OK |
+
+### Risco
+
+| Método | Endpoint | Descrição | Status HTTP |
+|---|---|---|---|
+| `POST` | `/api/v1/risk/metrics` | Sharpe, Sortino, drawdown, beta, alpha, VaR/CVaR | 200 OK |
+| `POST` | `/api/v1/risk/monte-carlo` | Simulação de Monte Carlo do patrimônio | 200 OK |
+
+### Empresarial
+
+| Método | Endpoint | Descrição | Status HTTP |
+|---|---|---|---|
+| `POST` | `/api/v1/business/income-statement` | DRE simulado com margens e projeção | 200 OK |
+| `POST` | `/api/v1/business/break-even` | Ponto de equilíbrio contábil, econômico e financeiro | 200 OK |
+| `POST` | `/api/v1/business/markup` | Markup e composição do preço de venda | 200 OK |
+| `POST` | `/api/v1/business/depreciation` | Cronograma de depreciação por método | 200 OK |
+| `POST` | `/api/v1/business/depreciation/compare` | Linear × soma dos dígitos × saldos decrescentes | 200 OK |
+| `GET` | `/api/v1/business/depreciation/asset-classes` | Taxas de referência da Receita Federal | 200 OK |
+
+### Tributário
+
+| Método | Endpoint | Descrição | Status HTTP |
+|---|---|---|---|
+| `POST` | `/api/v1/tax/simples` | DAS do Simples Nacional (Anexos I–V, Fator R) | 200 OK |
+| `POST` | `/api/v1/tax/compare` | Simples × Lucro Presumido × Lucro Real | 200 OK |
+
+### Trabalhista
+
+| Método | Endpoint | Descrição | Status HTTP |
+|---|---|---|---|
+| `POST` | `/api/v1/labor/net-salary` | Salário líquido (INSS, IRRF, FGTS, custo do empregador) | 200 OK |
+| `POST` | `/api/v1/labor/vacation` | Férias com 1/3 e abono pecuniário | 200 OK |
+| `POST` | `/api/v1/labor/thirteenth` | 13º salário (1ª e 2ª parcelas) | 200 OK |
+| `POST` | `/api/v1/labor/termination` | Rescisão por tipo de desligamento | 200 OK |
+
+### Administração (perfil ADMIN)
+
+| Método | Endpoint | Descrição | Status HTTP |
+|---|---|---|---|
+| `GET` | `/api/v1/admin/users` | Usuários paginados | 200 OK / 403 |
+| `PATCH` | `/api/v1/admin/users/{id}/role` | Troca o perfil (não permite remover o último admin) | 200 OK / 400 / 403 |
+| `GET` | `/api/v1/admin/stats` | Usuários por perfil e provedor, totais de simulações e investimentos | 200 OK / 403 |
+
+`GET /api/v1/users/me` agora também retorna `role` e `provider`, e responde 401 sem sessão.
 
 ### Índices econômicos
 
@@ -663,12 +745,13 @@ Todos os erros retornam o envelope:
 
 ## 9. Banco de dados
 
-Sete migrações Flyway criam o schema. Todos os valores monetários usam `NUMERIC` sem escala fixa — mapeia diretamente para `BigDecimal`.
+Oito migrações Flyway criam o schema. Todos os valores monetários usam `NUMERIC` sem escala fixa — mapeia diretamente para `BigDecimal`.
 
 ### Diagrama de relacionamentos
 
 ```
 users ─────┬──── simulations ─────┬──── installments
+           ├──── user_identities  │
            │                      ├──── cet_charges
            │                      └──── simulation_snapshots
            │
@@ -771,6 +854,14 @@ Constraint: `UNIQUE(index_code, reference_date)` — nenhum índice é duplicado
 | `index_rate_used` | NUMERIC | Índice BCB utilizado (null para pré-fixado) |
 | `status` | VARCHAR | CALCULATED |
 
+#### `users.role` e `user_identities` (V8)
+| Coluna | Tipo | Descrição |
+|---|---|---|
+| `users.role` | VARCHAR | `USER` (padrão) ou `ADMIN`, com CHECK |
+| `user_identities.subject_id` | VARCHAR PK | Identidade OAuth2 adicional (ex.: `github\|<id>`) |
+| `user_identities.user_id` | UUID FK | → users (ON DELETE CASCADE) |
+| `user_identities.provider` | VARCHAR | google / github |
+
 ---
 
 ## 10. Configuração multi-ambiente
@@ -797,35 +888,33 @@ Constraint: `UNIQUE(index_code, reference_date)` — nenhum índice é duplicado
 | `DB_USERNAME` | Usuário |
 | `DB_PASSWORD` | Senha |
 | `SERVER_PORT` | Porta HTTP (padrão 8080) |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | OAuth App do GitHub (opcional; sem eles o login GitHub fica desativado) |
+| `GITHUB_REDIRECT_URI` | Callback do GitHub, no domínio do frontend (padrão `${APP_FRONTEND_BASE_URL}/login/oauth2/code/github`) |
+| `APP_ADMIN_EMAILS` | E-mails promovidos a ADMIN no login, separados por vírgula |
 
 ---
 
 ## 11. Testes
 
-### Cobertura atual — 54 testes
+### Backend — JUnit 5 + AssertJ
 
-| Classe | Testes | Escopo |
-|---|---|---|
-| `AmortizationEngineTest` | 22 | SAC, PRICE, AMERICAN, GERMAN, SAM + validações |
-| `RunInvestmentUseCaseTest` | 8 | CDB, LCI, pré-fixado, IPCA+, 4 faixas de IR |
-| `RateConverterTest` | 10 | Conversões nominal ↔ efetiva, taxa real |
-| `IrrCalculatorTest` | 6 | TIR com convergência numérica |
-| `SimulationControllerIT` | 7 | POST/GET com PostgreSQL real (Testcontainers) |
-| `IfinanceApplicationTests` | 1 | Context load (inclui novos use cases e endpoints) |
+Cada calculadora de domínio tem testes com exemplos conferidos à mão (a conta fica num comentário curto ao lado da asserção), e cada controller tem testes de validação e de mapeamento HTTP via MockMvc standalone. Também estão cobertos:
 
-Os testes de integração (`SimulationControllerIT`) usam `@Testcontainers(disabledWithoutDocker = true)` — são pulados automaticamente quando o Docker não está disponível e executados normalmente em CI.
-
-### Lacunas de teste (o que não está coberto)
-
-| Área | Situação |
+| Área | O que é verificado |
 |---|---|
-| Exportação PDF/Excel | Sem testes — saídas binárias difíceis de assertar |
-| Endpoints de índices BCB | Sem mock do BCB Client |
-| Simulações com correção monetária | Sem teste de ponta a ponta |
-| Simulações com CET | Sem teste de integração |
-| OAuth2 / segurança | Sem testes com `@WithMockUser` |
-| Simulation snapshots | Use cases e endpoints implementados, sem testes unitários |
-| CompareSimulationsUseCase | Sem testes unitários |
+| Exportação PDF/Excel | Abertura do arquivo gerado (POI / iText), abas, linhas e totais |
+| Cliente BCB e índices | `MockRestServiceServer`, fallback e persistência do cache |
+| CET e correção monetária | Encargos por parcela no fluxo do CET; cronograma corrigido pelo IPCA |
+| Segurança | Anônimo / USER / ADMIN em `/api/v1/admin/**` e `/users/me`, sincronização Google/GitHub, vínculo por e-mail verificado |
+| Snapshots, comparação, liquidação antecipada | Casos de uso com repositórios simulados |
+
+Os testes de integração com PostgreSQL (`SimulationControllerIT`, `IfinanceApplicationTests`) usam `@Testcontainers(disabledWithoutDocker = true)` e são pulados sem Docker.
+
+Um teste continua desativado de propósito: com correção monetária ligada, o `InflationCorrectionEngine` amortiza como SAC qualquer que seja o sistema (PRICE, Americano, Alemão, SAM). Corrigir isso muda o modelo financeiro e depende de decisão de produto.
+
+### Frontend — Vitest + Vue Test Utils
+
+Utilitários (`isSafeRedirect`, `cn`), formatadores pt-BR, stores, interceptor de erros, todos os serviços de API, componentes de UI (botão, input, paginação, cartão de métrica), guard de rotas por perfil e a lógica dos módulos novos (parsers de séries, escalas dos gráficos, validação de formulários).
 
 ---
 
@@ -835,55 +924,22 @@ Os testes de integração (`SimulationControllerIT`) usam `@Testcontainers(disab
 
 ## 12. O que está implementado
 
-O sistema entrega hoje um **simulador de financiamento e renda fixa de precisão profissional**, com:
+O sistema cobre hoje as três versões planejadas:
 
-- **5 sistemas de amortização** com aritmética `BigDecimal`
-- **CET real** calculado via TIR do fluxo de caixa com encargos
-- **7 tipos de produto de renda fixa** com IR automático por prazo
-- **Correção monetária** por 5 índices econômicos em tempo real (BCB)
-- **Histórico e comparação** de simulações e investimentos
-- **Exportação** em PDF e Excel com formatação financeira
-- **API REST** versionada (`/api/v1`) com Swagger UI completo (5 grupos: simulação, investimento, exportação, índices, análise)
-- **Segurança OAuth2** (Google)
-- **Banco de dados** com 7 tabelas, precisão NUMERIC, schema versionado por Flyway
-- **Cache** Caffeine em memória com persistência de índices no PostgreSQL
-- **Arquitetura hexagonal** — domínio completamente isolado, testável sem Spring
+- **v1 — Financiamentos:** 5 sistemas de amortização em `BigDecimal`, CET via TIR, correção por 5 índices do BCB, histórico, comparação, snapshots, liquidação antecipada e exportação PDF/Excel
+- **v2 — Plataforma pessoal:** renda fixa com IR regressivo, VPL/TIR/payback, aposentadoria FIRE, reserva de emergência e frontend Vue 3
+- **v3 — Módulos profissionais:** capacidade de crédito, descontos, métricas de risco, Monte Carlo, DRE, ponto de equilíbrio, markup, depreciação, Simples/Presumido/Real, módulo trabalhista, login com GitHub e controle de acesso por perfil
 
 ---
 
 ## 13. O que falta
 
-### Curto prazo (complementos naturais do v1/v2)
-
-| Item | Impacto | Status |
-|---|---|---|
-| ~~Endpoint VPL/TIR~~ | Alto | ✅ implementado |
-| ~~Payback simples e descontado~~ | Médio | ✅ implementado |
-| ~~Liquidação antecipada com desconto~~ | Alto | ✅ implementado |
-| ~~Simulation snapshots expostos~~ | Médio | ✅ implementado |
-| ~~Comparador direto de renda fixa~~ | Alto | ✅ implementado |
-| ~~Planejamento de aposentadoria (FIRE)~~ | Alto | ✅ implementado |
-| ~~Calculadora de reserva de emergência~~ | Alto | ✅ implementado |
-| Testes de exportação PDF/Excel | Médio — qualidade | pendente |
-| Testes de integração para índices | Médio — qualidade | pendente |
-
-### Médio prazo (v3)
-
-| Item | Impacto | Esforço estimado |
-|---|---|---|
-| Análise de capacidade de crédito | Médio | Médio |
-| GitHub OAuth2 | Baixo | Baixo |
-
-### Longo prazo (v3)
-
-| Item | Impacto | Esforço estimado |
-|---|---|---|
-| Simulação de Monte Carlo | Alto — análise de risco | Alto |
-| Métricas de risco (Sharpe, drawdown, beta) | Alto — profissional | Alto |
-| Módulo empresarial (DRE, ponto de equilíbrio) | Médio | Alto |
-| Tributação (Simples, Presumido, Real) | Médio | Alto |
-| Módulo trabalhista | Baixo (produto diferente) | Muito alto |
-| Frontend | Necessário para produto final | Muito alto |
+| Item | Observação |
+|---|---|
+| Correção monetária preservando o sistema de amortização | Hoje toda simulação corrigida é amortizada como SAC (ver seção 11) |
+| Reforma Tributária (CBS/IBS) | Só há aviso; a transição começa em 2026–2027 |
+| Testes de integração com Docker em CI | Os ITs existem, mas só rodam com Docker disponível |
+| Verificação visual das páginas novas | Telas cobertas por testes unitários; falta conferência no navegador |
 
 ---
 
@@ -891,39 +947,19 @@ O sistema entrega hoje um **simulador de financiamento e renda fixa de precisão
 
 ```
 v1 — Simulador de financiamento   [IMPLEMENTADO]
-──────────────────────────────────────────────────
-✅ Motor BigDecimal / HALF_EVEN
-✅ SAC, PRICE, AMERICAN, GERMAN, SAM
-✅ CET via TIR
-✅ Correção por IPCA, IGP-M, CDI, SELIC, TR
-✅ Exportação PDF e Excel
-✅ Histórico e comparação de cenários
-✅ OAuth2 Google
-✅ API REST /api/v1 + Swagger
-
 v2 — Plataforma financeira pessoal [IMPLEMENTADO]
+v3 — Módulos profissionais         [IMPLEMENTADO]
 ──────────────────────────────────────────────────
-✅ Renda fixa (CDB, LCI, LCA, Tesouro, pré-fixado)
-✅ IR regressivo automático
-✅ Histórico e comparação de investimentos
-✅ Endpoint VPL/TIR/Payback (POST /api/v1/analysis)
-✅ Liquidação antecipada (GET /{id}/prepayment?period=n)
-✅ Snapshots de simulação (GET/POST /{id}/snapshots)
-✅ Comparador direto de produtos (POST /api/v1/investments/compare-direct)
-✅ Planejamento de aposentadoria FIRE (POST /api/v1/planning/retirement)
-✅ Calculadora de reserva de emergência (POST /api/v1/planning/emergency)
-✅ Frontend Vue 3 + Vite + TailwindCSS v4 (todas as páginas v2)
-
-v3 — Módulos profissionais         [PLANEJADO]
-──────────────────────────────────────────────────
-❌ Métricas de risco (Sharpe, drawdown, beta, alpha)
-❌ Monte Carlo
-❌ DRE, ponto de equilíbrio, markup
-❌ Regimes tributários (Simples, Presumido, Real)
-❌ Controle de acesso por perfil
-❌ Frontend
+✅ Capacidade de crédito e descontos
+✅ Métricas de risco (Sharpe, Sortino, drawdown, beta, alpha, VaR)
+✅ Monte Carlo
+✅ DRE, ponto de equilíbrio, markup, depreciação
+✅ Regimes tributários (Simples, Presumido, Real)
+✅ Módulo trabalhista (salário líquido, férias, 13º, rescisão)
+✅ Login com GitHub
+✅ Controle de acesso por perfil (USER / ADMIN)
 ```
 
 ---
 
-*Documento atualizado em maio/2026 — inclui VPL/TIR/Payback, Liquidação antecipada e Snapshots implementados.*
+*Documento atualizado em outubro/2026 — inclui todos os módulos v3.*

@@ -48,7 +48,10 @@ export function useFormatBR() {
   function formatDate(dateStr: string | null | undefined): string {
     if (!dateStr) return '-'
     try {
-      const date = new Date(dateStr)
+      // Date-only ISO strings parse as UTC midnight and would render as the previous day in Brazil (UTC-3)
+      const ymd = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr)
+      const date = ymd ? new Date(+ymd[1], +ymd[2] - 1, +ymd[3]) : new Date(dateStr)
+      if (isNaN(date.getTime())) return dateStr
       return date.toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
@@ -63,6 +66,7 @@ export function useFormatBR() {
     if (!dateStr) return '-'
     try {
       const date = new Date(dateStr)
+      if (isNaN(date.getTime())) return dateStr
       return date.toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: '2-digit',

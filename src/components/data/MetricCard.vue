@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import AppSkeleton from '@/components/ui/AppSkeleton.vue'
 
 interface Props {
@@ -24,8 +25,8 @@ const colorMap = {
   warning: 'bg-amber-500/15 text-amber-400',
 }
 
-const isPositiveChange = props.change !== undefined && props.change > 0
-const isNegativeChange = props.change !== undefined && props.change < 0
+const isPositiveChange = computed(() => props.change !== undefined && props.change > 0)
+const isNegativeChange = computed(() => props.change !== undefined && props.change < 0)
 </script>
 
 <template>
@@ -61,7 +62,7 @@ const isNegativeChange = props.change !== undefined && props.change < 0
         <svg v-else-if="isNegativeChange" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
-        {{ change > 0 ? '+' : '' }}{{ change.toFixed(1) }}%
+        {{ change > 0 ? '+' : '' }}{{ change.toFixed(1).replace('.', ',') }}%
       </div>
       <span v-if="changeLabel" class="text-xs text-[var(--text-muted)]">{{ changeLabel }}</span>
     </div>

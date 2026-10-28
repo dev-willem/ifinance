@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
-// Vitest faz merge automático com vite.config.ts (plugins, alias, etc.)
-// Este arquivo só adiciona as configurações específicas de test
+// Vitest ignora vite.config.ts quando este arquivo existe; só o plugin vue é necessário
+// (AutoImport/Components regenerariam os .d.ts compartilhados)
 export default defineConfig({
+  plugins: [vue()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

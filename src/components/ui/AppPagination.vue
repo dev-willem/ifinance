@@ -19,7 +19,7 @@ const emit = defineEmits<{
   'page-size-change': [size: number]
 }>()
 
-const from = computed(() => props.currentPage * props.pageSize + 1)
+const from = computed(() => (props.totalItems === 0 ? 0 : props.currentPage * props.pageSize + 1))
 const to = computed(() => Math.min((props.currentPage + 1) * props.pageSize, props.totalItems))
 
 const visiblePages = computed(() => {
@@ -31,17 +31,20 @@ const visiblePages = computed(() => {
     return Array.from({ length: total }, (_, i) => i)
   }
 
-  pages.push(0)
-  if (current > 3) pages.push('...')
-
   const start = Math.max(1, current - 1)
   const end = Math.min(total - 2, current + 1)
+
+  // A gap of a single page shows that page instead of an ellipsis
+  pages.push(0)
+  if (start > 2) pages.push('...')
+  else for (let i = 1; i < start; i++) pages.push(i)
 
   for (let i = start; i <= end; i++) {
     pages.push(i)
   }
 
-  if (current < total - 4) pages.push('...')
+  if (end < total - 3) pages.push('...')
+  else for (let i = end + 1; i < total - 1; i++) pages.push(i)
   pages.push(total - 1)
 
   return pages
@@ -81,8 +84,8 @@ const visiblePages = computed(() => {
         </button>
 
         <button
-          v-for="page in visiblePages"
-          :key="page"
+          v-for="(page, i) in visiblePages"
+          :key="page === '...' ? `gap-${i}` : page"
           :disabled="page === '...'"
           :class="[
             'flex items-center justify-center h-10 min-w-[2.5rem] sm:h-8 sm:min-w-[2rem] px-2 rounded-lg text-sm font-medium transition-colors',

@@ -101,4 +101,50 @@ export const NAV_ITEMS = [
       { label: 'Reserva de Emergência', path: '/planning/emergency', icon: 'Shield' },
     ],
   },
+  {
+    section: 'Crédito',
+    items: [
+      { label: 'Capacidade de Crédito', path: '/credit/capacity', icon: 'HandCoins' },
+      { label: 'Desconto de Títulos', path: '/credit/discount', icon: 'Percent' },
+    ],
+  },
+  {
+    section: 'Risco',
+    items: [
+      { label: 'Métricas de Risco', path: '/risk/metrics', icon: 'Activity' },
+      { label: 'Monte Carlo', path: '/risk/monte-carlo', icon: 'Dices' },
+    ],
+  },
+  {
+    section: 'Empresarial',
+    items: [
+      { label: 'DRE Simulada', path: '/business/income-statement', icon: 'FileSpreadsheet' },
+      { label: 'Ponto de Equilíbrio', path: '/business/break-even', icon: 'Scale' },
+      { label: 'Markup', path: '/business/markup', icon: 'Tags' },
+      { label: 'Depreciação', path: '/business/depreciation', icon: 'TrendingDown' },
+    ],
+  },
+  {
+    section: 'Tributário',
+    items: [
+      { label: 'Simples Nacional', path: '/tax/simples', icon: 'Receipt' },
+      { label: 'Comparar Regimes', path: '/tax/compare', icon: 'Landmark' },
+    ],
+  },
+  {
+    section: 'Trabalhista',
+    items: [
+      { label: 'Salário Líquido', path: '/labor/net-salary', icon: 'Wallet' },
+      { label: 'Férias', path: '/labor/vacation', icon: 'Palmtree' },
+      { label: '13º Salário', path: '/labor/thirteenth', icon: 'Gift' },
+      { label: 'Rescisão', path: '/labor/termination', icon: 'UserMinus' },
+    ],
+  },
+  {
+    section: 'Administração',
+    adminOnly: true,
+    items: [
+      { label: 'Usuários', path: '/admin/users', icon: 'ShieldCheck' },
+    ],
+  },
 ] as const

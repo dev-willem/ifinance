@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import type { User } from '@/types'
 
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string
     requiresAuth?: boolean
+    requiresRole?: User['role']
     layout?: 'dashboard' | 'auth' | 'none'
   }
 }
@@ -108,6 +110,108 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Reserva de Emergência', requiresAuth: true, layout: 'dashboard' },
   },
 
+  // Credit
+  {
+    path: '/credit/capacity',
+    name: 'credit-capacity',
+    component: () => import('@/pages/credit/CreditCapacityPage.vue'),
+    meta: { title: 'Capacidade de Crédito', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/credit/discount',
+    name: 'credit-discount',
+    component: () => import('@/pages/credit/DiscountPage.vue'),
+    meta: { title: 'Desconto de Títulos', requiresAuth: true, layout: 'dashboard' },
+  },
+
+  // Risk
+  {
+    path: '/risk/metrics',
+    name: 'risk-metrics',
+    component: () => import('@/pages/risk/RiskMetricsPage.vue'),
+    meta: { title: 'Métricas de Risco', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/risk/monte-carlo',
+    name: 'risk-monte-carlo',
+    component: () => import('@/pages/risk/MonteCarloPage.vue'),
+    meta: { title: 'Monte Carlo', requiresAuth: true, layout: 'dashboard' },
+  },
+
+  // Business
+  {
+    path: '/business/income-statement',
+    name: 'business-income-statement',
+    component: () => import('@/pages/business/IncomeStatementPage.vue'),
+    meta: { title: 'DRE Simulada', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/business/break-even',
+    name: 'business-break-even',
+    component: () => import('@/pages/business/BreakEvenPage.vue'),
+    meta: { title: 'Ponto de Equilíbrio', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/business/markup',
+    name: 'business-markup',
+    component: () => import('@/pages/business/MarkupPage.vue'),
+    meta: { title: 'Markup e Preço de Venda', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/business/depreciation',
+    name: 'business-depreciation',
+    component: () => import('@/pages/business/DepreciationPage.vue'),
+    meta: { title: 'Depreciação', requiresAuth: true, layout: 'dashboard' },
+  },
+
+  // Tax
+  {
+    path: '/tax/simples',
+    name: 'tax-simples',
+    component: () => import('@/pages/tax/SimplesNacionalPage.vue'),
+    meta: { title: 'Simples Nacional', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/tax/compare',
+    name: 'tax-compare',
+    component: () => import('@/pages/tax/TaxRegimeComparePage.vue'),
+    meta: { title: 'Comparar Regimes Tributários', requiresAuth: true, layout: 'dashboard' },
+  },
+
+  // Labor
+  {
+    path: '/labor/net-salary',
+    name: 'labor-net-salary',
+    component: () => import('@/pages/labor/NetSalaryPage.vue'),
+    meta: { title: 'Salário Líquido', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/labor/vacation',
+    name: 'labor-vacation',
+    component: () => import('@/pages/labor/VacationPage.vue'),
+    meta: { title: 'Férias', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/labor/thirteenth',
+    name: 'labor-thirteenth',
+    component: () => import('@/pages/labor/ThirteenthPage.vue'),
+    meta: { title: '13º Salário', requiresAuth: true, layout: 'dashboard' },
+  },
+  {
+    path: '/labor/termination',
+    name: 'labor-termination',
+    component: () => import('@/pages/labor/TerminationPage.vue'),
+    meta: { title: 'Rescisão', requiresAuth: true, layout: 'dashboard' },
+  },
+
+  // Admin
+  {
+    path: '/admin/users',
+    name: 'admin-users',
+    component: () => import('@/pages/admin/AdminUsersPage.vue'),
+    meta: { title: 'Usuários', requiresAuth: true, requiresRole: 'ADMIN', layout: 'dashboard' },
+  },
+
   // 404
   {
     path: '/:pathMatch(.*)*',
@@ -148,6 +252,9 @@ router.beforeEach(async (to, _from, next) => {
     sessionStorage.setItem('auth:redirect', to.fullPath)
     return next('/')
   }
+
+  // A API também nega (403); o guard só evita abrir a página para quem não tem o perfil
+  if (to.meta.requiresRole && authStore.role !== to.meta.requiresRole) return next('/')
 
   return next()
 })

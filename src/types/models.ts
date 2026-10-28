@@ -52,8 +52,10 @@ export interface User {
   name: string
   email: string
   picture?: string
-  roles: string[]
-  createdAt: string
+  role: 'USER' | 'ADMIN'
+  /** Provedor de origem da conta: google, github ou local */
+  provider: string
+  createdAt?: string
 }
 
 export interface NavItem {
