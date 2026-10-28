@@ -12,12 +12,7 @@ declare module 'vue-router' {
 
 const routes: RouteRecordRaw[] = [
   // Auth routes
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/pages/auth/LoginPage.vue'),
-    meta: { title: 'Login', requiresAuth: false, layout: 'auth' },
-  },
+  { path: '/login', redirect: '/' },
   {
     path: '/auth/callback',
     name: 'auth-callback',
@@ -29,7 +24,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'dashboard',
-    component: () => import('@/pages/dashboard/DashboardPage.vue'),
+    component: () => import('@/pages/HomePage.vue'),
     meta: { title: 'Dashboard', requiresAuth: true, layout: 'dashboard' },
   },
 
@@ -145,7 +140,13 @@ router.beforeEach(async (to, _from, next) => {
   await authStore.init()
 
   if (!authStore.isAuthenticated) {
-    return next({ name: 'login', query: { redirect: to.fullPath } })
+    // Login é servido na própria "/" (HomePage); o destino fica guardado para depois do OAuth
+    if (to.path === '/') {
+      document.title = 'Login — iFinance'
+      return next()
+    }
+    sessionStorage.setItem('auth:redirect', to.fullPath)
+    return next('/')
   }
 
   return next()

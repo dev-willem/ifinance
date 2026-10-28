@@ -22,6 +22,10 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      workbox: {
+        // Rotas do backend (proxy do Netlify) não podem cair no fallback do SPA
+        navigateFallbackDenylist: [/^\/api\//, /^\/oauth2\//, /^\/login\/oauth2\//, /^\/logout/],
+      },
       manifest: {
         name: 'iFinance',
         short_name: 'iFinance',

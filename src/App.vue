@@ -17,7 +17,9 @@ const auth = useAuthStore()
 
 setupInterceptors()
 
-const layout = computed(() => route.meta.layout ?? 'dashboard')
+const layout = computed(() =>
+  route.name === 'dashboard' && !auth.isAuthenticated ? 'auth' : (route.meta.layout ?? 'dashboard'),
+)
 
 onMounted(() => {
   window.addEventListener('auth:logout', () => {
